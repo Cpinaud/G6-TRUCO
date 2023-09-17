@@ -22,6 +22,9 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     public Usuario buscarUsuario(String email, String password) {
 
         final Session session = sessionFactory.getCurrentSession();
+        //EN EL MUNDO RELACIONAL ESTO SE CONVIERTE EN UN SELECT
+        //CREATECRITERIA ES LA TABLA DEL SELECT
+        //EQ-> DONDE "PASSWORD" ES IGUAL A PASSWORD
         return (Usuario) session.createCriteria(Usuario.class)
                 .add(Restrictions.eq("email", email))
                 .add(Restrictions.eq("password", password))
