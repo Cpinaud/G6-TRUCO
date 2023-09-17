@@ -35,19 +35,19 @@ public class ControladorLoginTest {
 		controladorLogin = new ControladorLogin(servicioLoginMock);
 	}
 
-//	@Test
-//	public void loginConUsuarioYPasswordInorrectosDeberiaLlevarALoginNuevamente(){
-//		// preparacion
-//		when(servicioLoginMock.consultarUsuario(anyString(), anyString())).thenReturn(null);
-//
-//		// ejecucion
-//		ModelAndView modelAndView = controladorLogin.validarLogin(datosLoginMock, requestMock);
-//
-//		// validacion
-//		assertThat(modelAndView.getViewName(), equalToIgnoringCase("login"));
-//		assertThat(modelAndView.getModel().get("error").toString(), equalToIgnoringCase("Usuario o clave incorrecta"));
-//		verify(sessionMock, times(0)).setAttribute("ROL", "ADMIN");
-//	}
+	@Test
+	public void loginConUsuarioYPasswordInorrectosDeberiaLlevarALoginNuevamente(){
+		// preparacion
+		when(servicioLoginMock.consultarUsuario(anyString(), anyString())).thenReturn(null);
+
+		// ejecucion
+		ModelAndView modelAndView = controladorLogin.validarLogin(datosLoginMock, requestMock);
+
+		// validacion
+		assertThat(modelAndView.getViewName(), equalToIgnoringCase("login"));
+		assertThat(modelAndView.getModel().get("error").toString(), equalToIgnoringCase("Usuario o clave incorrecta"));
+		verify(sessionMock, times(0)).setAttribute("ROL", "ADMIN");
+	}
 	
 	@Test
 	public void loginConUsuarioYPasswordCorrectosDeberiaLLevarAHome(){

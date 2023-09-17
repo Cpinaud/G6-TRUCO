@@ -1,7 +1,7 @@
 package com.tallerwebi.infraestructura;
 
-import com.tallerwebi.dominio.Jugador;
-import com.tallerwebi.dominio.RepositorioJugador;
+import com.tallerwebi.dominio.jugador.Jugador;
+import com.tallerwebi.dominio.jugador.RepositorioJugador;
 import org.springframework.stereotype.Repository;
 
 @Repository("repositorioJugador")

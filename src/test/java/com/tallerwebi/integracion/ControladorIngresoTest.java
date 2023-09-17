@@ -1,20 +1,15 @@
 package com.tallerwebi.integracion;
-import com.tallerwebi.dominio.Jugador;
-import com.tallerwebi.dominio.ServicioIngreso;
-import com.tallerwebi.dominio.ServicioIngresoImpl;
+import com.tallerwebi.dominio.jugador.Jugador;
+import com.tallerwebi.dominio.jugador.ServicioIngreso;
 import com.tallerwebi.presentacion.ControladorIngreso;
 import com.tallerwebi.presentacion.DatosDeIngreso;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.web.servlet.ModelAndView;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.text.IsEqualIgnoringCase.equalToIgnoringCase;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 
