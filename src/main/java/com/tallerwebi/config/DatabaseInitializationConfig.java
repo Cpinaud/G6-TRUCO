@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 @Configuration
 public class DatabaseInitializationConfig {
 
+    //Spring va a inyectar por mi este dataSource
     @Autowired
     private DataSource dataSource;
 

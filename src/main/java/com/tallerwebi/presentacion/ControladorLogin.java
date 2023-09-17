@@ -3,7 +3,6 @@ package com.tallerwebi.presentacion;
 import com.tallerwebi.dominio.ServicioLogin;
 import com.tallerwebi.dominio.Usuario;
 import com.tallerwebi.dominio.excepcion.UsuarioExistente;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,35 +21,6 @@ public class ControladorLogin {
     @Autowired
     public ControladorLogin(ServicioLogin servicioLogin){
         this.servicioLogin = servicioLogin;
-    }
-
-    @RequestMapping("/index")
-    public ModelAndView irAIngreso() {
-
-        ModelMap modelo = new ModelMap();
-        modelo.put("datosDeIngreso", new DatosDeIngreso());
-        return new ModelAndView("index", modelo);
-    }
-    @RequestMapping(path = "/validar-ingreso", method = RequestMethod.POST)
-    public ModelAndView validarIngreso(@ModelAttribute("datosDeIngreso") DatosDeIngreso datosDeIngreso) {
-        ModelMap modelo = new ModelMap();
-
-        if (datosDeIngreso.getUsuario() != null) {
-            return new ModelAndView("redirect:/singin");
-        } else {
-            modelo.put("error", "Usuario o clave incorrecta");
-        }
-        return new ModelAndView("login", modelo);
-    }
-
-    @RequestMapping(path = "/singin", method = RequestMethod.GET)
-    public ModelAndView irASingin() {
-        return new ModelAndView("singin");
-    }
-
-    @RequestMapping(path = "/", method = RequestMethod.GET)
-    public ModelAndView inicio() {
-        return new ModelAndView("redirect:/index");
     }
 
     @RequestMapping("/login")
@@ -101,6 +71,13 @@ public class ControladorLogin {
     public ModelAndView irAHome() {
         return new ModelAndView("home");
     }
+
+    @RequestMapping(path = "/", method = RequestMethod.GET)
+    public ModelAndView inicio() {
+        return new ModelAndView("redirect:/login");
+    }
+
+
 
 }
 
