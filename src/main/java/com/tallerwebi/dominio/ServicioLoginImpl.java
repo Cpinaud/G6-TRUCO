@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 public class ServicioLoginImpl implements ServicioLogin {
 
     private RepositorioUsuario servicioLoginDao;
+    private RepositorioUsuario servicioLogin2;
 
     @Autowired
     public ServicioLoginImpl(RepositorioUsuario servicioLoginDao){
@@ -21,6 +22,11 @@ public class ServicioLoginImpl implements ServicioLogin {
     public Usuario consultarUsuario (String email, String password) {
         return servicioLoginDao.buscarUsuario(email, password);
     }
+
+//    @Override
+//    public Jugador buscarUsuario(String usuario, String contrasena) {
+//        return servicioLoginDao.buscarUsuario(usuario, contrasena);
+//    }
 
     @Override
     public void registrar(Usuario usuario) throws UsuarioExistente {

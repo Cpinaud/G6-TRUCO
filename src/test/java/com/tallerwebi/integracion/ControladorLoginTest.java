@@ -29,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = {SpringWebTestConfig.class, HibernateTestConfig.class})
+
 public class ControladorLoginTest {
 
 	private Usuario usuarioMock;
@@ -45,7 +46,7 @@ public class ControladorLoginTest {
 	}
 
 	@Test
-	public void debeRetornarLaPaginaLoginCuandoSeNavegaALaRaiz() throws Exception {
+	public void retornarLaPaginaLogin() throws Exception {
 
 		MvcResult result = this.mockMvc.perform(get("/"))
 				/*.andDo(print())*/
