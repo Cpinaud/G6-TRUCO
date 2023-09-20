@@ -26,7 +26,7 @@ public class ControladorLogin {
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public ModelAndView inicio() {
-        return new ModelAndView("redirect:/login");
+        return new ModelAndView("redirect:/index");
     }
 
     @RequestMapping(path = "/home", method = RequestMethod.GET)
@@ -34,19 +34,20 @@ public class ControladorLogin {
         return new ModelAndView("home");
     }
 
-    @RequestMapping("/login")
+    @RequestMapping("/index")
     public ModelAndView irALogin() {
 
         ModelAndView modelo = new ModelAndView();
         modelo.addObject("datosLogin", new DatosLogin());
         modelo.addObject("pruebaHot", "Cambiando el mensaje a ver si realmente es necesario rebuildear el proyecto");
-        modelo.setViewName("login");
+        modelo.setViewName("index");
         return modelo;
     }
-    @RequestMapping(path = "/nuevo-usuario", method = RequestMethod.GET)
+    @RequestMapping(path = "/singin", method = RequestMethod.GET)
     public ModelAndView nuevoUsuario() {
         ModelAndView view = new ModelAndView();
         view.addObject("usuario", new Usuario());
+        view.setViewName("singin");
         return view;
     }
     @RequestMapping(path = "/validar-login", method = RequestMethod.POST)
@@ -61,7 +62,7 @@ public class ControladorLogin {
             return model;
         } else {
             model.addObject("error", "Usuario o clave incorrecta");
-            model.setViewName("login");
+            model.setViewName("index");
         }
 
         return model;
@@ -74,14 +75,15 @@ public class ControladorLogin {
             servicioLogin.registrar(usuario);
         } catch (UsuarioExistente e) {
             model.addObject("error", "El usuario ya existe");
-            model.setViewName("nuevo-usuario");
+            model.setViewName("singin");
             return model;
         } catch (Exception e) {
             model.addObject("error", "Error al registrar el nuevo usuario");
-            model.setViewName("nuevo-usuario");
+            model.setViewName("singin");
             return model;
         }
-        model.setViewName("redirect:/login");
+        model.setViewName("redirect:/index");
+        model.addObject("exitoso","Registro exitoso, por favor inicie sesion");
         return model;
     }
 }
