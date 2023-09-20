@@ -15,24 +15,28 @@
         <div class="formulario">
             <img  th:src="@{/assets/logo.png}" class="img_titulo pb-5">
             <h2>Registrarse</h2>
-            <form action="#" method="POST" class="w-75">
+            <form th:action="@{/registrarme}" method="POST" class="w-75" th:object="${usuario}">
                 <div class="form-group">
-                    <input type="text" name="nombre" class="form-control" placeholder="Ingrese su nombre" required>
+                    <input th:field="*{nombre}" id="nombre" class="form-control" placeholder="Nombre" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" name="apellido" class="form-control" placeholder="Ingrese su apellido" required>
+                    <input th:field="*{apellido}" id="apellido" class="form-control" placeholder="Apellido" required>
                 </div>
                 <div class="form-group">
-                    <input type="date" name="apellido" class="form-control" placeholder="Ingrese su fecha de nacimiento" required>
+                    <input th:field="*{fechaNacimiento}" id="fechaNacimiento" type="date" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" name="nombreUsuario" class="form-control" placeholder="Ingrese su nombre de usuario" required>
+                    <input th:field="*{email}" id="email" class="form-control" placeholder="E-mail" required>
                 </div>
                 <div class="form-group">
-                    <input type="password" name="contrasena" class="form-control" placeholder="Contraseña" required>
+                    <input th:field="*{username}" id="username" class="form-control" placeholder="Nombre de usuario" required>
                 </div>
-                <a type="" class="btn" href="./home_page.html">Registrarse</a>
-                <a href="./index.html" class="d-block p-2 vinculo">Iniciar sesion</a>
+                <div class="form-group">
+                    <input th:field="*{password}" id="contrasena" type="password" class="form-control" placeholder="Contrasena" required>
+                </div>
+                <button id="btn-registrarme" class="btn btn-lg btn-primary btn-block mt-3 mb-2" Type="Submit">Registrarme</button>
+                <p th:if="${error != null}" class="alert alert-danger" th:text="'Error ' + ${error}">
+                </p>
             </form>
         </div>
         <div class="informacion">

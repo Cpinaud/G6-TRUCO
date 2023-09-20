@@ -55,20 +55,20 @@ public class ControladorLoginTest {
 
 		ModelAndView modelAndView = result.getModelAndView();
         assert modelAndView != null;
-		assertThat("redirect:/login", equalToIgnoringCase(Objects.requireNonNull(modelAndView.getViewName())));
+		assertThat("redirect:/index", equalToIgnoringCase(Objects.requireNonNull(modelAndView.getViewName())));
 		assertThat(true, is(modelAndView.getModel().isEmpty()));
 	}
 
 	@Test
 	public void debeRetornarLaPaginaLoginCuandoSeNavegaALLogin() throws Exception {
 
-		MvcResult result = this.mockMvc.perform(get("/login"))
+		MvcResult result = this.mockMvc.perform(get("/index"))
 				.andExpect(status().isOk())
 				.andReturn();
 
 		ModelAndView modelAndView = result.getModelAndView();
         assert modelAndView != null;
-        assertThat(modelAndView.getViewName(), equalToIgnoringCase("login"));
+        assertThat(modelAndView.getViewName(), equalToIgnoringCase("index"));
 		assertThat(modelAndView.getModel().get("datosLogin").toString(),  containsString("com.tallerwebi.presentacion.DatosLogin"));
 
 	}
