@@ -10,10 +10,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ControladorPerfil {
 
-    @RequestMapping(path = "/nuevo-usuario", method = RequestMethod.GET)
+    @RequestMapping(path = "/perfil", method = RequestMethod.GET)
     public ModelAndView nuevoUsuario() {
         ModelMap model = new ModelMap();
         model.put("usuario", new Usuario());
-        return new ModelAndView("nuevo-usuario", model);
+        return new ModelAndView("perfil", model);
     }
 }
