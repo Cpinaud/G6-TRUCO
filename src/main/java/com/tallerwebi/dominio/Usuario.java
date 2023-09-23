@@ -14,7 +14,7 @@ public class Usuario {
     private Long id;
     private String nombre;
     private String apellido;
-    private Date fechaNacimiento;
+    /*private Date fechaNacimiento;*/
     private String email;
     private String username;
     private String password;
@@ -77,13 +77,13 @@ public class Usuario {
         this.apellido = apellido;
     }
 
-    public Date getFechaNacimiento() {
+    /*public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
-    }
+    }*/
 
     public String getUsername() {
         return username;
