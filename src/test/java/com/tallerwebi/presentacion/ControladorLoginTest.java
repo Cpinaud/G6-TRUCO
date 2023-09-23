@@ -1,14 +1,35 @@
 package com.tallerwebi.presentacion;
 
+import com.tallerwebi.dominio.RepositorioUsuario;
 import com.tallerwebi.dominio.ServicioLogin;
+import com.tallerwebi.dominio.ServicioLoginImpl;
 import com.tallerwebi.dominio.Usuario;
 import com.tallerwebi.dominio.excepcion.UsuarioExistente;
+import com.tallerwebi.infraestructura.RepositorioUsuarioImpl;
+import org.hibernate.*;
+import org.hibernate.boot.spi.SessionFactoryOptions;
+import org.hibernate.engine.spi.FilterDefinition;
+import org.hibernate.metadata.ClassMetadata;
+import org.hibernate.metadata.CollectionMetadata;
+import org.hibernate.stat.Statistics;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.naming.NamingException;
+import javax.naming.Reference;
+import javax.persistence.EntityGraph;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceUnitUtil;
+import javax.persistence.SynchronizationType;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import java.sql.Connection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.text.IsEqualIgnoringCase.equalToIgnoringCase;
@@ -36,9 +57,9 @@ public class ControladorLoginTest {
 	}
 
 	@Test
-	public void loginConUsuarioYPasswordInorrectosDeberiaLlevarALoginNuevamente(){
+	public void loginConMailYPasswordInorrectosDeberiaLlevarALoginNuevamente(){
 		// preparacion
-		when(servicioLoginMock.consultarUsuario(anyString(), anyString())).thenReturn(null);
+		when(servicioLoginMock.consultarUsuarioPorMail(anyString(), anyString())).thenReturn(null);
 
 		// ejecucion
 		ModelAndView modelAndView = controladorLogin.validarLogin(datosLoginMock, requestMock);
@@ -50,13 +71,13 @@ public class ControladorLoginTest {
 	}
 	
 	@Test
-	public void loginConUsuarioYPasswordCorrectosDeberiaLLevarAHome(){
+	public void loginConMailYPasswordCorrectosDeberiaLLevarAHome(){
 		// preparacion
 		Usuario usuarioEncontradoMock = mock(Usuario.class);
 		when(usuarioEncontradoMock.getRol()).thenReturn("ADMIN");
 
 		when(requestMock.getSession()).thenReturn(sessionMock);
-		when(servicioLoginMock.consultarUsuario(anyString(), anyString())).thenReturn(usuarioEncontradoMock);
+		when(servicioLoginMock.consultarUsuarioPorMail(anyString(), anyString())).thenReturn(usuarioEncontradoMock);
 		
 		// ejecucion
 		ModelAndView modelAndView = controladorLogin.validarLogin(datosLoginMock, requestMock);

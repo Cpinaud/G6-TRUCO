@@ -2,9 +2,11 @@ package com.tallerwebi.dominio;
 
 public interface RepositorioUsuario {
 
-    Usuario buscarUsuario(String email, String password);
+    Usuario buscarUsuarioPorMail(String email, String password);
+    Usuario buscarUsuarioPorUsername(String username, String password);
     void guardar(Usuario usuario);
-    Usuario buscar(String email);
+    Usuario buscarMail(String email);
+    Usuario buscarUsername(String username);
     void modificar(Usuario usuario);
 }
 
