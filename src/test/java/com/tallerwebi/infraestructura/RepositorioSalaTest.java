@@ -36,7 +36,6 @@ public class RepositorioSalaTest {
     SessionFactory sessionFactory;
     private RepositorioSala repositorio;
 
-    private Sala sala;
 
 
     @BeforeEach
@@ -49,7 +48,7 @@ public class RepositorioSalaTest {
     @Rollback
     @Test
     public void QueSePuedaGuardarUnaSala() {
-        sala=new Sala();
+        Sala sala=new Sala();
         sala.setId_sala(1L);
         sala.setCantidadMaximaJugadores(2);
         sala.setCantidad_de_jugadores_en_sala(1);
@@ -63,7 +62,7 @@ public class RepositorioSalaTest {
     @Rollback
     @Test
     public void QueBusqueUnaSalaPorId() {
-        sala=new Sala();
+        Sala sala=new Sala();
         sala.setId_sala(1L);
         sala.setCantidadMaximaJugadores(2);
         sala.setCantidad_de_jugadores_en_sala(1);
@@ -74,14 +73,12 @@ public class RepositorioSalaTest {
 
     }
 
-
-
     @Transactional
     @Rollback
     @Test
     public void QueDevuelvaFalsoAlIntentarGuardarUnaSalaYaExistenteConUnMismoid() {
 
-        sala=new Sala();
+        Sala sala=new Sala();
         sala.setId_sala(1L);
         sala.setCantidadMaximaJugadores(2);
         sala.setCantidad_de_jugadores_en_sala(1);
@@ -104,7 +101,7 @@ public class RepositorioSalaTest {
     @Rollback
     public void QuesePuedaObtenerlaListadeSalas() {
 
-        sala=new Sala();
+        Sala sala=new Sala();
         sala.setId_sala(1L);
         sala.setCantidadMaximaJugadores(2);
         sala.setCantidad_de_jugadores_en_sala(1);

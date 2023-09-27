@@ -25,6 +25,12 @@ public class Sala {
         this.Cantidad_de_jugadores_en_sala =Cantidad_de_jugadores_en_sala;
 
     }
+
+    public Sala(Integer cantidadMaximaJugadores, Integer Cantidad_de_jugadores_en_sala) {
+        this.cantidadMaximaJugadores =cantidadMaximaJugadores;
+        this.Cantidad_de_jugadores_en_sala =Cantidad_de_jugadores_en_sala;
+
+    }
     public Sala() {
     }
 

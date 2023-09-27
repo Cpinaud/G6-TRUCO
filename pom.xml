@@ -173,7 +173,7 @@
                 <version>9.4.45.v20220203</version>
                 <configuration>
                     <reload>automatic</reload>
-                    <scanIntervalSeconds>1</scanIntervalSeconds>
+                    <scanIntervalSeconds>5</scanIntervalSeconds>
                     <webApp>
                         <contextPath>/spring</contextPath>
                     </webApp>
