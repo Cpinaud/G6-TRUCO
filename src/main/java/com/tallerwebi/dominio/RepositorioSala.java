@@ -1,14 +1,14 @@
 package com.tallerwebi.dominio;
 
+import java.util.List;
+
 public interface RepositorioSala {
 
-    boolean crearsala(Long id, Integer Cantidad_maxima_jugadores);
     Sala buscarsala(Long id);
 
     boolean Salaexistente(Long id);
 
     boolean guardarSala(Sala sala);
 
-    Sala obtenerSala(Long id);
-
+    List<Sala> obtenersalas();
 }
