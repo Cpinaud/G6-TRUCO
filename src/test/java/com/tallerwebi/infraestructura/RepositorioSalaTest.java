@@ -33,23 +33,15 @@ public class RepositorioSalaTest {
 
 
     @Autowired
-    SessionFactory sessionFactory;
     private RepositorioSala repositorio;
 
 
-
-    @BeforeEach
-    public void init(){
-        repositorio = new RepositorioSalaImpl(sessionFactory);
-
-    }
 
     @Transactional
     @Rollback
     @Test
     public void QueSePuedaGuardarUnaSala() {
         Sala sala=new Sala();
-        sala.setId_sala(1L);
         sala.setCantidadMaximaJugadores(2);
         sala.setCantidad_de_jugadores_en_sala(1);
 
@@ -63,51 +55,26 @@ public class RepositorioSalaTest {
     @Test
     public void QueBusqueUnaSalaPorId() {
         Sala sala=new Sala();
-        sala.setId_sala(1L);
         sala.setCantidadMaximaJugadores(2);
         sala.setCantidad_de_jugadores_en_sala(1);
         repositorio.guardarSala(sala);
 
-        assertEquals(1L,repositorio.buscarsala(1L).getId_sala());
-
-
-    }
-
-    @Transactional
-    @Rollback
-    @Test
-    public void QueDevuelvaFalsoAlIntentarGuardarUnaSalaYaExistenteConUnMismoid() {
-
-        Sala sala=new Sala();
-        sala.setId_sala(1L);
-        sala.setCantidadMaximaJugadores(2);
-        sala.setCantidad_de_jugadores_en_sala(1);
-
-        Sala sala2=new Sala();
-        sala2.setId_sala(1L);
-        sala2.setCantidadMaximaJugadores(2);
-        sala2.setCantidad_de_jugadores_en_sala(1);
-
-        repositorio.guardarSala(sala);
-
-        assertFalse(repositorio.guardarSala(sala2));
+        assertEquals(sala.getId_sala(),repositorio.buscarsala(sala.getId_sala()).getId_sala());
 
 
     }
 
 
-    @Test
     @Transactional
     @Rollback
+    @Test
     public void QuesePuedaObtenerlaListadeSalas() {
 
         Sala sala=new Sala();
-        sala.setId_sala(1L);
         sala.setCantidadMaximaJugadores(2);
         sala.setCantidad_de_jugadores_en_sala(1);
 
         Sala sala2 =new Sala();
-        sala2.setId_sala(2L);
         sala2.setCantidadMaximaJugadores(2);
         sala2.setCantidad_de_jugadores_en_sala(1);
 

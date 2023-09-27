@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-
 @Controller
 public class ControladorSala {
     private ServicioSala servicioSala;
@@ -22,27 +20,30 @@ public class ControladorSala {
         ModelAndView model = new ModelAndView();
         if (!servicioSala.obtenerlistadeSalas().isEmpty()){
             model.addObject("ListadeSalas",servicioSala.obtenerlistadeSalas());
-            return new ModelAndView("salas");
+            return model;
 
         }else {
             model.addObject("ninguna_sala", "No hay ninguna sala");
-            return new ModelAndView("salas");
+            model.setViewName("redirect:/salas");
+            return model;
         }
 
 
     }
     @RequestMapping(path = "/crear_sala", method = RequestMethod.POST)
     public ModelAndView crearsala(){
-        return new ModelAndView("redirect:/partida");
+        return new ModelAndView("redirect:/iniciarPartida");
     }
 
 
+
+    //Ver HttpServletRequest request como parametro.
     @RequestMapping(path = "/ingresar_a_sala", method = RequestMethod.POST)
-    public ModelAndView IngresaraSala(@ModelAttribute("id_sala") Long id_sala, HttpServletRequest request) {
+    public ModelAndView IngresaraSala(@ModelAttribute("id_sala") Long id_sala) {
         ModelAndView model = new ModelAndView();
 
         servicioSala.obtenersala(id_sala);
-        model.setViewName("redirect:/iniciarPartida");
+        model.setViewName("redirect:/partida");
         return model;
     }
 
@@ -50,14 +51,19 @@ public class ControladorSala {
 
     //codigo del controlador de iniciar partida
     @GetMapping("/iniciarPartida")
-    public String mostrarFormulario() {
-        return "iniciarPartida";
+    public ModelAndView mostrarFormulario() {
+        ModelAndView model = new ModelAndView();
+        model.setViewName("iniciarPartida");
+        return model;
+
     }
 
     @PostMapping("/iniciar")
-    public ModelAndView mostrarTexto(@RequestParam("cantidadDejugadores") String cantidadDejugadores, ModelAndView model) {
+    public ModelAndView creadordesala(@RequestParam("cantidadDejugadores") String cantidadDejugadores, ModelAndView model) {
         int cantidadJugadoresInt = Integer.parseInt(cantidadDejugadores);
-        if (servicioSala.crearsala(new Sala(cantidadJugadoresInt,1))) {
+        Sala sala = new Sala(cantidadJugadoresInt,1);
+        Boolean salacreada = servicioSala.crearsala(sala);
+        if (salacreada) {
 
             model.addObject("cantidadJugadoresInt", cantidadJugadoresInt);
             model.setViewName("redirect:/partida");
