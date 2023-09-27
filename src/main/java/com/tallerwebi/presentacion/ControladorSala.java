@@ -51,7 +51,7 @@ public class ControladorSala {
 
     //codigo del controlador de iniciar partida
     @GetMapping("/iniciarPartida")
-    public ModelAndView mostrarFormulario() {
+    public ModelAndView mostrarFormulario2() {
         ModelAndView model = new ModelAndView();
         model.setViewName("iniciarPartida");
         return model;
