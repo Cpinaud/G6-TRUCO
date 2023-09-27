@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ControladorSala {
     private ServicioSala servicioSala;
     @Autowired
-    public ControladorSala(ServicioSala servicioSalaMock) {
+    public ControladorSala(ServicioSala servicioSala) {
         this.servicioSala = servicioSala;
 
     }
@@ -45,6 +45,8 @@ public class ControladorSala {
         model.setViewName("redirect:/iniciarPartida");
         return model;
     }
+
+
 
     //codigo del controlador de iniciar partida
     @GetMapping("/iniciarPartida")
