@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class ControladorIniciarPartida {
 
-/*
+
     @GetMapping("/iniciarPartida")
     public String mostrarFormulario() {
         return "iniciarPartida";
@@ -24,6 +24,6 @@ public class ControladorIniciarPartida {
         model.addAttribute("cantidadJugadoresInt", cantidadJugadoresInt);
         return "partida";
     }
-*/
+
 
 }

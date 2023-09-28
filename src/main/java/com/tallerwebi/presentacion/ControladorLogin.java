@@ -39,7 +39,7 @@ public class ControladorLogin {
 
         ModelAndView modelo = new ModelAndView();
         modelo.addObject("datosLogin", new DatosLogin());
-        modelo.addObject("pruebaHot", "Cambiando el mensaje a ver si realmente es necesario rebuildear el proyecto");
+       /* modelo.addObject("pruebaHot", "Cambiando el mensaje a ver si realmente es necesario rebuildear el proyecto");*/
         modelo.setViewName("index");
         return modelo;
     }

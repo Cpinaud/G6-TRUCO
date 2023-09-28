@@ -47,7 +47,7 @@ public class ControladorSala {
         return model;
     }
 
-
+/*
 
     //codigo del controlador de iniciar partida
     @GetMapping("/iniciarPartida")
@@ -74,7 +74,7 @@ public class ControladorSala {
         }
 
     }
-
+*/
 
 
 }

@@ -1,16 +1,21 @@
 CREATE DATABASE IF NOT EXISTS data;
 USE data;
 
-CREATE TABLE Palo 
+CREATE TABLE IF NOT EXISTS Palo 
 (
 	id INT PRIMARY KEY auto_increment,
     palo VARCHAR(20)
 );
 
+CREATE TABLE IF NOT EXISTS sala (
+    id INT PRIMARY KEY,
+    nombre VARCHAR(255)
+);
+
 INSERT INTO Palo (palo) VALUES
 	('oro'),('espada'),('copa'),('basto');
     
-CREATE TABLE Carta 
+CREATE TABLE IF NOT EXISTS Carta 
 (
 	id INT PRIMARY KEY auto_increment,
     nro	INT,
@@ -21,16 +26,19 @@ CREATE TABLE Carta
 );
 -- select c.id, c.nro, p.palo, c.valor, c.imagen from Carta AS C
 -- join Palo AS p ON p.id = c.palo;
-DROP TABLE Usuario;
+DROP TABLE IF EXISTS Usuario;
 CREATE TABLE Usuario (
   id int PRIMARY KEY auto_increment,
   nombre varchar(40) NOT NULL,
   apellido varchar(40) NOT NULL,
   email varchar(40) NOT NULL,
-  usuario varchar(40) NOT NULL,
-  clave varchar(40) NOT NULL);
+  username varchar(40) NOT NULL,
+  password varchar(40) NOT NULL,
+  rol varchar(10) NOT NULL,
+  activo boolean NOT NULL);
 
-INSERT INTO Usuario (nombre, apellido, email, usuario, clave) VALUES ("Rocio","Crespo","rocio@gmail.com","rocio1234","1234");
+INSERT INTO Usuario (nombre, apellido, email, username, password,rol,activo) VALUES ("Rocio","Crespo","rocio@gmail.com","rocio1234","1234","ADMIN",False);
+INSERT INTO Usuario (nombre, apellido, email, username, password,rol,activo) VALUES ("Cintia","Pinaud","cintia@gmail.com","PruebaUser","1234","ADMIN",False);
 INSERT INTO Carta (nro, palo, valor, imagen) VALUES
 	('1', '1', '8', 'oro1.png'),
 	('2', '1', '9', 'oro2.png'),

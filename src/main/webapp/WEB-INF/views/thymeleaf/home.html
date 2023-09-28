@@ -23,9 +23,11 @@
     <div id="perfil_usuario">
       <div id="imagen_falsa"></div>
       <div id="datos_usuario">
-        <h3 th:text="${usuario.username}" id="username">USERNAME</h3>
+        <!--<h3 th:text="${usuario.username}" id="username">USERNAME</h3>-->
+        <h3 text="USERNAME" id="username">USERNAME</h3>
         <hr>
-        <h4 th:text="${usuario.nombre} +' '+ ${usuario.apellido}" id="nombre_completo">Nombre Completo</h4>
+        <!--<h4 th:text="${usuario.nombre} +' '+ ${usuario.apellido}" id="nombre_completo">Nombre Completo</h4>-->
+        <h4 text="NOMBRE Y APELLIDO" id="nombre_completo">Nombre Completo</h4>
         <p class="historial">Partidas jugadas: 111</p>
         <p class="historial">Partidas ganadas: 3</p>
       </div>
@@ -36,7 +38,7 @@
             <a href="./">INICIO</a>
         </li> -->
         <li class="botones_menu">
-          <a href="./">INICIAR NUEVO JUEGO</a>
+          <a href="iniciarPartida.html">INICIAR NUEVO JUEGO</a>
         </li>
         <li class="botones_menu">
           <a href="./">HISTORIAL COMPLETO</a>
@@ -45,7 +47,7 @@
           <a href="./">RANKING</a>
         </li>
         <li class="botones_menu">
-          <a href="./">VER SALAS</a>
+          <a href="salas.html">VER SALAS</a>
         </li>
         <li class="botones_menu">
           <a href="./">TORNEO</a>
@@ -66,7 +68,7 @@
   </aside>
   <main id="contenedor_main">
     <section id="contenedor_variable">
-      <a href="iniciarPartida.html" >Iniciar Partida</a>
+      <!--<a href="iniciarPartida.html" >Iniciar Partida</a>-->
     </section>
     <section id="contenedor_informacion">
       <article class="informacion_juego">

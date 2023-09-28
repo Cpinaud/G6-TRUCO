@@ -19,11 +19,11 @@ public class HibernateConfig {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.hsqldb.jdbcDriver");
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         //se debe buscar el connection string para el motor que se elija
-        dataSource.setUrl("jdbc:hsqldb:mem:db_");
-        dataSource.setUsername("sa");
-        dataSource.setPassword("");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/data");
+        dataSource.setUsername("admin");
+        dataSource.setPassword("123abc");
         return dataSource;
     }
 
@@ -50,7 +50,7 @@ public class HibernateConfig {
     private Properties hibernateProperties() {
         Properties properties = new Properties();
         //esto hay que cambiarlo dependiendo del motor que usemos
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         //en modo prd esto debe quedar en false (los dos). Sale por consola  lo que hibernate hace por mi
         properties.setProperty("hibernate.show_sql", "true");
         properties.setProperty("hibernate.format_sql", "true");
