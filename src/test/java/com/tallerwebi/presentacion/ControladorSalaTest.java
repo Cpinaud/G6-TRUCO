@@ -71,7 +71,7 @@ public class ControladorSalaTest {
 
         ModelAndView modelAndView = controladorSala.irASalas();
         assertEquals(modelAndView.getModel().get("ninguna_sala").toString(),"No hay ninguna sala");
-        assertEquals(modelAndView.getViewName(),"redirect:/salas");
+        assertEquals(modelAndView.getViewName(),"salas");
     }
 
 /*
