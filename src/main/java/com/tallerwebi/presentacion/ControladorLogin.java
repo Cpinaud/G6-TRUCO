@@ -54,10 +54,18 @@ public class ControladorLogin {
     public ModelAndView validarLogin(@ModelAttribute("datosLogin") DatosLogin datosLogin, HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
 
-        Usuario usuarioBuscado = servicioLogin.consultarUsuario(datosLogin.getEmail(), datosLogin.getPassword());
+        String usuarioIngresado = datosLogin.getUser();
+        Usuario usuarioBuscado;
+
+        if(usuarioIngresado.contains("@")){
+            usuarioBuscado = servicioLogin.consultarUsuarioPorMail(datosLogin.getUser(), datosLogin.getPassword());
+        } else {
+            usuarioBuscado = servicioLogin.consultarUsuarioPorUsername(datosLogin.getUser(), datosLogin.getPassword());
+        }
 
         if (usuarioBuscado != null) {
             request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
+            model.addObject("usuario", usuarioBuscado);
             model.setViewName("redirect:/home");
             return model;
         } else {
@@ -82,8 +90,8 @@ public class ControladorLogin {
             model.setViewName("singin");
             return model;
         }
-        model.setViewName("redirect:/index");
         model.addObject("exitoso","Registro exitoso, por favor inicie sesion");
+        model.setViewName("redirect:/index");
         return model;
     }
 }

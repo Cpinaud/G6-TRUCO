@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.tallerwebi</groupId>
     <artifactId>tallerwebi-base</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>spring web mvc</name>
+    <name>SPRING_TALLER_WEB_MVC</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -50,6 +50,16 @@
             <version>2.3.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.5</version>
+        </dependency>
         <dependency>
             <groupId>org.thymeleaf</groupId>
             <artifactId>thymeleaf-spring5</artifactId>
@@ -109,6 +119,12 @@
             <version>${playwright.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
         <!-- compile only, deployed container will provide this -->
         <!--
         <dependency>
@@ -118,6 +134,13 @@
             <scope>provided</scope>
         </dependency>
         -->
+        <!--
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <version>2.7.15</version>
+            <scope>runtime</scope>
+        </dependency>-->
     </dependencies>
 
     <build>
@@ -152,10 +175,15 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>9.4.45.v20220203</version>
                 <configuration>
-                    <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <reload>automatic</reload>
+                    <scanIntervalSeconds>5</scanIntervalSeconds>
                     <webApp>
                         <contextPath>/spring</contextPath>
                     </webApp>
+                    <scanTargets>
+                        <scanTarget>src/main/webapp/resources</scanTarget>
+                        <scanTarget>src/main/webapp/WEB-INF</scanTarget>
+                    </scanTargets>
                 </configuration>
             </plugin>
 

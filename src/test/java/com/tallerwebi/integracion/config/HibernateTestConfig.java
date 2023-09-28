@@ -10,6 +10,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+//este archivo es para que cuando testeo no modifique la bd productiva, sino que use otra
+//para no manejar datos de prueba en la base productiva
+//este no debe apuntar a nuestro motor de bd
 @Configuration
 @EnableTransactionManagement
 public class HibernateTestConfig {

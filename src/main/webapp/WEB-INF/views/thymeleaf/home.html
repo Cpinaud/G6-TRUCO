@@ -23,9 +23,9 @@
     <div id="perfil_usuario">
       <div id="imagen_falsa"></div>
       <div id="datos_usuario">
-        <h3 id="username">USERNAME</h3>
+        <h3 th:text="${usuario.username}" id="username">USERNAME</h3>
         <hr>
-        <h4 id="nombre_completo">Nombre Completo</h4>
+        <h4 th:text="${usuario.nombre} +' '+ ${usuario.apellido}" id="nombre_completo">Nombre Completo</h4>
         <p class="historial">Partidas jugadas: 111</p>
         <p class="historial">Partidas ganadas: 3</p>
       </div>

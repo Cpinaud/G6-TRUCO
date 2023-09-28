@@ -19,8 +19,18 @@ public class ServicioLoginImpl implements ServicioLogin {
     }
 
     @Override
-    public Usuario consultarUsuario (String email, String password) {
-        return servicioLoginDao.buscarUsuario(email, password);
+    public Usuario consultarUsuarioPorMail(String email, String password) {
+        return servicioLoginDao.buscarUsuarioPorMail(email, password);
+    }
+
+//    @Override
+//    public Jugador buscarUsuario(String usuario, String contrasena) {
+//        return servicioLoginDao.buscarUsuario(usuario, contrasena);
+//    }
+
+    @Override
+    public Usuario consultarUsuarioPorUsername(String username, String password) {
+        return servicioLoginDao.buscarUsuarioPorUsername(username, password);
     }
 
 //    @Override
@@ -30,8 +40,9 @@ public class ServicioLoginImpl implements ServicioLogin {
 
     @Override
     public void registrar(Usuario usuario) throws UsuarioExistente {
-        Usuario usuarioEncontrado = servicioLoginDao.buscarUsuario(usuario.getEmail(), usuario.getPassword());
-        if(usuarioEncontrado != null){
+        Usuario mailEncontrado = servicioLoginDao.buscarUsuarioPorMail(usuario.getEmail(), usuario.getPassword());
+        Usuario usernameEncontrado = servicioLoginDao.buscarUsuarioPorUsername(usuario.getUsername(), usuario.getPassword());
+        if(mailEncontrado != null && usernameEncontrado != null){
             throw new UsuarioExistente();
         }
         servicioLoginDao.guardar(usuario);
