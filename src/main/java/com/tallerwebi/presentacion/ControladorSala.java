@@ -24,7 +24,7 @@ public class ControladorSala {
 
         }else {
             model.addObject("ninguna_sala", "No hay ninguna sala");
-            model.setViewName("redirect:/salas");
+            model.setViewName("salas");
             return model;
         }
 

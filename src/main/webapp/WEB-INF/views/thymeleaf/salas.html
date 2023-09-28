@@ -16,12 +16,12 @@
         <tr   th:if="${ninguna_sala == null}" >
         <tr th:each="salas : ${ListadeSalas}">
         <div class="container">
-            <form action="#" th:action="@{/ingresar_a_sala}"  method="POST"  class="w-75" th:object="${id_sala}"">
-        <td><span th:text="${salas.id_sala}" name="id_sala"> ID_SALA </span></td>
+            <form action="#" th:action="@{/ingresar_a_sala}"  method="POST"  class="w-75" th:object="${id_sala}">
+        <td><span th:text="${salas.id_sala}" name="id_sala"> </span></td>
         <br>
-        <td><span th:text="${salas.cantidad_de_jugadores_en_sala}"> cantidad_de_jugadores_en_sala </span></td>
+        <td><span th:text="${salas.cantidad_de_jugadores_en_sala}">  </span></td>
              <p>/</p>
-            <td><span th:text="${salas.cantidadMaximaJugadores}"> cantidadMaximaJugadores </span></td>
+            <td><span th:text="${salas.cantidadMaximaJugadores}">  </span></td>
 
             </form>
         </div>
@@ -30,7 +30,7 @@
         </tr>
 
 
-        <form action="#" th:action="@{/crear_sala}"  method="POST"  class="w-75"">
+        <form action="#" th:action="@{/crear_sala}"  method="POST"  class="w-75">
 
             <p th:if="${ninguna_sala != null}" class="alert alert-danger" th:text="'Error ' + ${ninguna_sala}">
             </p>
