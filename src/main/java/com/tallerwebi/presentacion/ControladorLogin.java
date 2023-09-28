@@ -31,6 +31,14 @@ public class ControladorLogin {
         return new ModelAndView("login", modelo);
     }
 
+    @RequestMapping("/singin")
+    public ModelAndView irASingin() {
+
+        ModelMap modelo = new ModelMap();
+        modelo.put("datosLogin", new DatosLogin());
+        return new ModelAndView("singin", modelo);
+    }
+
     @RequestMapping(path = "/validar-login", method = RequestMethod.POST)
     public ModelAndView validarLogin(@ModelAttribute("datosLogin") DatosLogin datosLogin, HttpServletRequest request) {
         ModelMap model = new ModelMap();
@@ -66,6 +74,8 @@ public class ControladorLogin {
         model.put("usuario", new Usuario());
         return new ModelAndView("nuevo-usuario", model);
     }
+
+
 
     @RequestMapping(path = "/home", method = RequestMethod.GET)
     public ModelAndView irAHome() {
