@@ -23,6 +23,11 @@ public class ServicioLoginImpl implements ServicioLogin {
         return servicioLoginDao.buscarUsuarioPorMail(email, password);
     }
 
+//    @Override
+//    public Jugador buscarUsuario(String usuario, String contrasena) {
+//        return servicioLoginDao.buscarUsuario(usuario, contrasena);
+//    }
+
     @Override
     public Usuario consultarUsuarioPorUsername(String username, String password) {
         return servicioLoginDao.buscarUsuarioPorUsername(username, password);
