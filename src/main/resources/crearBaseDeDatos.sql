@@ -7,9 +7,11 @@ CREATE TABLE IF NOT EXISTS Palo
     palo VARCHAR(20)
 );
 
-CREATE TABLE IF NOT EXISTS sala (
-    id INT PRIMARY KEY,
-    nombre VARCHAR(255)
+
+CREATE TABLE IF NOT EXISTS Sala (
+	id_sala INT PRIMARY KEY,
+cantidadMAximaJugadores INT,
+Cantidad_de_jugadores_en_sala INT
 );
 
 INSERT INTO Palo (palo) VALUES

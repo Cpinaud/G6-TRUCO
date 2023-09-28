@@ -22,8 +22,8 @@ public class HibernateConfig {
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         //se debe buscar el connection string para el motor que se elija
         dataSource.setUrl("jdbc:mysql://localhost:3306/data");
-        dataSource.setUsername("admin");
-        dataSource.setPassword("123abc");
+        dataSource.setUsername("root");
+        dataSource.setPassword("");
         return dataSource;
     }
 
@@ -56,7 +56,7 @@ public class HibernateConfig {
         properties.setProperty("hibernate.format_sql", "true");
         //qué va a hacer hibernate con el esquema de bd. (en prd debe quedar en none en donde dice create)
         //en create Hibernate crea por mi las tablas en la bd, con update las updatea si es necesario
-        properties.setProperty("hibernate.hbm2ddl.auto", "create");
+        properties.setProperty("hibernate.hbm2ddl.auto", "update");
         return properties;
     }
 }
