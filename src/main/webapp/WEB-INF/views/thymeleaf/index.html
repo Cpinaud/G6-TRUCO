@@ -15,17 +15,20 @@
         <div class="formulario">
             <img th:src="@{/assets/logo.png}" class="img_titulo pb-5">
             <h2>Iniciar Sesión</h2>
-            <form action="#" th:action="@{/validar-ingreso}"  method="POST"  class="w-75" th:object="${datosDeIngreso}">
+            <span th:text="${pruebaHot}"></span>
+            <form action="#" th:action="@{/validar-login}"  method="POST"  class="w-75" th:object="${datosLogin}">
                 <div class="form-group">
-                    <input th:field="*{usuario}" type="text" name="nombre_usuario" class="form-control" placeholder="Nombre de Usuario" >
+                    <input th:field="*{user}" type="text" name="nombre_usuario" class="form-control" placeholder="Nombre de Usuario" >
                 </div>
                 <div class="form-group">
-                    <input th:field="*{contrasena}" type="password" name="contrasena" class="form-control" placeholder="Contraseña"  >
+                    <input th:field="*{password}" type="password" name="contrasena" class="form-control" placeholder="Contraseña"  >
                 </div>
                 <p th:if="${error != null}" class="alert alert-danger" th:text="'Error ' + ${error}">
                 </p>
                 <button id="btn-login" class="btn" Type="Submit">Ingresar</button>
-                <a  href="./singin.html" class="d-block p-2 vinculo">Crear cuenta</a>
+                <p th:if="${exitoso != null}" class="alert alert-primary" th:text="${exitoso}">
+                </p>
+                <a  href="singin" class="d-block p-2 vinculo">Crear cuenta</a>
             </form>
         </div>
         <div class="informacion">

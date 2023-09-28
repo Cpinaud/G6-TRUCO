@@ -6,7 +6,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
-          <factory-entry name="tallerwebi-base" />
+          <factory-entry name="tallerwebi-base" value="2b58d187-c791-4753-8e99-b7db553de920" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>

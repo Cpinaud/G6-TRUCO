@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="overlay">
+    <div class="formulario">
+        <h2>Salas</h2>
+
+        <tr   th:if="${ninguna_sala == null}" >
+        <tr th:each="salas : ${ListadeSalas}">
+        <div class="container">
+            <form action="#" th:action="@{/ingresar_a_sala}"  method="POST"  class="w-75" th:object="${id_sala}">
+        <td><span th:text="${salas.id_sala}" name="id_sala"> </span></td>
+        <br>
+        <td><span th:text="${salas.cantidad_de_jugadores_en_sala}">  </span></td>
+             <p>/</p>
+            <td><span th:text="${salas.cantidadMaximaJugadores}">  </span></td>
+
+            </form>
+        </div>
+
+        </tr>
+        </tr>
+
+
+        <form action="#" th:action="@{/crear_sala}"  method="POST"  class="w-75">
+
+            <p th:if="${ninguna_sala != null}" class="alert alert-danger" th:text="'Error ' + ${ninguna_sala}">
+            </p>
+            <button id="btn-login" class="btn" Type="Submit">Crear Sala</button>
+            <p th:if="${error_crear_sala != null}" class="alert alert-primary" th:text="${error_crear_sala}">
+            </p>
+
+
+
+        </form>
+    </div>
+</div>
+</body>
+</html>
