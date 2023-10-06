@@ -68,7 +68,6 @@ public class ControladorSala {
         Sala sala = new Sala(nombre_sala,cantidadJugadoresInt,1);
         Boolean salacreada = servicioSala.crearsala(sala);
         if (salacreada) {
-
             model.addObject("cantidadJugadoresInt", cantidadJugadoresInt);
             model.setViewName("redirect:/partida");
             return model;
@@ -76,7 +75,6 @@ public class ControladorSala {
             model.addObject("error_crear_sala", "Error al crear la sala");
             return model;
         }
-
     }
 
     private String StringAleatorio() {

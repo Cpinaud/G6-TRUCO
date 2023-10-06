@@ -10,12 +10,9 @@ CREATE TABLE IF NOT EXISTS Palo
 
 CREATE TABLE IF NOT EXISTS Sala (
 	id_sala INT PRIMARY KEY,
-    nombre_sala VARCHAR(100),
 cantidadMAximaJugadores INT,
 Cantidad_de_jugadores_en_sala INT
 );
-
-
 
 INSERT INTO Palo (palo) VALUES
 	('oro'),('espada'),('copa'),('basto');

@@ -25,6 +25,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.text.IsEqualIgnoringCase.equalToIgnoringCase;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -74,14 +75,14 @@ public class ControladorSalaTest {
         assertEquals(modelAndView.getViewName(),"salas");
     }
 
-/*
+
 
     @Test
     public void QuealIngresarASalaRedireccioneaIniciarPartida(){
 
-        when(servicioSalaMock.obtenersala(1L)).thenReturn(sala);
+        when(servicioSalaMock.obtenersala(anyString())).thenReturn(sala);
 
-        ModelAndView modelAndView = controladorSala.IngresaraSala(1L);
+        ModelAndView modelAndView = controladorSala.IngresaraSala(sala.getNombre_sala());
         assertEquals(modelAndView.getViewName(),"redirect:/partida");
 
     }
@@ -114,6 +115,5 @@ public class ControladorSalaTest {
         assertEquals(modelAndView.getModel().get("error_crear_sala").toString(),"Error al crear la sala");
 
     }
-    */
 
 }
