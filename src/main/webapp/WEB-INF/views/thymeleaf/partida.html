@@ -92,12 +92,13 @@
                          <div class="round-label">Ronda 1</div>
                          <div class="option-container">
                             <form action="#" th:action="@{/eventoPartida}"  method="POST"  class="w-75" th:object="${evento}">
-                                <button type="submit" value="truco"  name="truco" >TRUCO</button>
+                                <button type="submit" value='truco' name="truco" >TRUCO</button>
                              </form>
                          </div>
                          <div class="option-container" th:if="${evento== 'Le canto Truco'}">
                              <form action="#" th:action="@{/eventoPartida}"  method="POST"  class="w-75" th:object="${evento}">
                                    <button Type="Submit" value="retruco"  name="retruco" >RETRUCO</button>
+                                 <input  value="retruco"  name="retruco">
                              </form>
                          </div>
                          <div class="option-container" th:if="${evento== 'Le canto ReTruco'}">

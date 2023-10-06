@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import static org.hibernate.sql.InFragment.NULL;
+
 @Controller
 public class ControladorPartidaEventos {
 
@@ -21,13 +23,14 @@ public class ControladorPartidaEventos {
     }*/
 
     @RequestMapping(path = "/eventoPartida", method = RequestMethod.POST)
-    public ModelAndView eventoPartida(@ModelAttribute("evento")String eventoPartida) {
+    public ModelAndView eventoPartida(@ModelAttribute("evento")EventoPartida eventoPartida) {
         ModelAndView model = new ModelAndView();
 
-        model.addObject("evento", "Le canto Truco");
-        model.setViewName("partida");
 
-        switch (eventoPartida) {
+            model.addObject("evento", eventoPartida.getevento());
+            model.setViewName("partida");
+
+        switch (eventoPartida.getevento()) {
             case "truco":
                 model.addObject("evento", "Le canto Truco");
                 model.setViewName("partida");

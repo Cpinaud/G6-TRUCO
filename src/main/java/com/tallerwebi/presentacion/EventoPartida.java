@@ -1,30 +1,28 @@
 package com.tallerwebi.presentacion;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
-public enum EventoPartida {
-
-    truco,retruco,vale_cuatro,envido,real_envido,falta_envido;
+public class EventoPartida {
 
 
-  /*
-  Agregar entity y cambiar a class
+    private String evento;
 
-    @Id
-    private Long id;
-    private String nombre_evento;
     private Integer valor;
-
-
-
-    public String getNombre_evento() {
-        return nombre_evento;
+    public EventoPartida(){
+    }
+    public EventoPartida(String evento){
+        this.evento=evento;
     }
 
-    public void setNombre_evento(String nombre_evento) {
-        this.nombre_evento = nombre_evento;
+    public String getevento() {
+        return evento;
+    }
+
+    public void setevento(String nombre_evento) {
+        this.evento = nombre_evento;
     }
 
     public Integer getValor() {
@@ -35,11 +33,6 @@ public enum EventoPartida {
         this.valor = valor;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public Long getId() {
-        return id;
-    }*/
+
 }
