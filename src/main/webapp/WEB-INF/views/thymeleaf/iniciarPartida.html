@@ -27,6 +27,8 @@
             <option value="6">6</option>
         </select>
         <br>
+        <p th:if="${error_crear_sala != null}" class="alert alert-primary" th:text="${error_crear_sala}">
+        </p>
         <button type="submit">Iniciar Partida</button>
     </form>
 </div>

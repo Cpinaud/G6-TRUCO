@@ -53,6 +53,7 @@ public class ControladorSala {
 
 
     //codigo del controlador de iniciar partida
+
     @GetMapping("/iniciarPartida")
     public ModelAndView mostrarFormulario2() {
         ModelAndView model = new ModelAndView();
@@ -70,15 +71,14 @@ public class ControladorSala {
         if (salacreada) {
 
             model.addObject("cantidadJugadoresInt", cantidadJugadoresInt);
-            model.setViewName("redirect:/partida");
+            model.setViewName("partida");
             return model;
         }else {
             model.addObject("error_crear_sala", "Error al crear la sala");
+            model.setViewName("iniciarPartida");
             return model;
         }
-
     }
-
     private String StringAleatorio() {
             String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
             StringBuilder salt = new StringBuilder();
@@ -92,6 +92,3 @@ public class ControladorSala {
 
         }
     }
-
-
-
