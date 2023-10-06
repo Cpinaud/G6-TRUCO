@@ -28,12 +28,12 @@ public class ServicioSalaImpl implements ServicioSala {
     }
 
     public boolean Salaexistente(Sala sala) {
-        return serviciosalaDao.Salaexistente(sala.getId_sala());
+        return serviciosalaDao.Salaexistente(sala.getNombre_sala());
     }
 
     @Override
-    public Sala obtenersala(Long id) {
-        return (Sala) serviciosalaDao.buscarsala(id);
+    public Sala obtenersala(String nombre_sala) {
+        return (Sala) serviciosalaDao.buscarsala(nombre_sala);
     }
 
     @Override
