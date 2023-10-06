@@ -31,7 +31,7 @@ import static org.mockito.Mockito.mock;
 @ContextConfiguration(classes = {SpringWebTestConfig.class, HibernateTestConfig.class})
 public class RepositorioSalaTest {
 
-    Sala sala;
+    private Sala sala;
     @Autowired
     private RepositorioSala repositorio;
 
@@ -40,7 +40,7 @@ public class RepositorioSalaTest {
         sala = new Sala("pepe",2);
     }
 
-        @Transactional
+    @Transactional
     @Rollback
     @Test
     public void QueBusqueUnaSalaPorNombre() {
