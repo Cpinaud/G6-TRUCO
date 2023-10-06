@@ -19,6 +19,7 @@ public class ControladorSala {
     }
     @RequestMapping(path = "/salas", method = RequestMethod.GET)
     public ModelAndView irASalas() {
+
         ModelAndView model = new ModelAndView();
         if (!servicioSala.obtenerlistadeSalas().isEmpty()){
             model.addObject("ListadeSalas",servicioSala.obtenerlistadeSalas());
