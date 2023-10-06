@@ -20,7 +20,7 @@ public class ServicioSalaImpl implements ServicioSala {
 
     @Override
     public boolean crearsala(Sala sala) {
-        if(Salaexistente(sala)){
+        if(!Salaexistente(sala)){
             serviciosalaDao.guardarSala(sala);
             return true;
         }

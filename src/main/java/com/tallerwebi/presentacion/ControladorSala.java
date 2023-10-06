@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.Random;
 
 @Controller
@@ -22,7 +23,8 @@ public class ControladorSala {
 
         ModelAndView model = new ModelAndView();
         if (!servicioSala.obtenerlistadeSalas().isEmpty()){
-            model.addObject("ListadeSalas",servicioSala.obtenerlistadeSalas());
+            List<Sala> salas = servicioSala.obtenerlistadeSalas();
+            model.addObject("ListadeSalas",salas);
             return model;
 
         }else {
