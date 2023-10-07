@@ -103,16 +103,7 @@ public ModelAndView eventotruco() {
         model.setViewName("partida");
         return model;
     }
-
-
-
-
-    /*
-        En caso de volver a intentarlo con eventoPartida, hay que cambiar el action de todos los eventos en el html de partida
-        ej: de truco a falta envido cambiarlo por eventoPartida y de quiero a al maso por eventoJugador.
-        P
-
-    @RequestMapping(path = "/eventoPartida", method = RequestMethod.POST)
+    /*@RequestMapping(path = "/eventoPartida", method = RequestMethod.POST)
     public ModelAndView eventoPartida(@ModelAttribute("evento")EventoPartida evento) {
         ModelAndView model = new ModelAndView();
 
