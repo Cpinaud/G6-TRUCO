@@ -77,7 +77,7 @@ public ModelAndView eventotruco() {
         ModelAndView model = new ModelAndView();
         EventoPartida eventoPartida = new EventoPartida("falta_envido",10);
         datosEvento = new DatosEvento(eventoPartida);
-        model.addObject("evento", "Le canto Real Envido");
+        model.addObject("evento", "Le canto Falta Envido");
         model.setViewName("partida");
         return model;
     }
@@ -104,14 +104,14 @@ public ModelAndView eventotruco() {
         return model;
     }
     /*@RequestMapping(path = "/eventoPartida", method = RequestMethod.POST)
-    public ModelAndView eventoPartida(@ModelAttribute("evento")EventoPartida eventoPartida) {
+    public ModelAndView eventoPartida(@ModelAttribute("evento")EventoPartida evento) {
         ModelAndView model = new ModelAndView();
 
 
-            model.addObject("evento", eventoPartida.getevento());
+            model.addObject("evento", evento.getevento());
             model.setViewName("partida");
 
-        switch (eventoPartida.getevento()) {
+        switch (evento.getevento()) {
             case "truco":
                 model.addObject("evento", "Le canto Truco");
                 model.setViewName("partida");
