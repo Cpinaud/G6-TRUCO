@@ -91,18 +91,18 @@
                  <div class="options-menu">
                          <div class="round-label">Ronda 1</div>
                          <div class="option-container">
-                            <form action="#" th:action="@{/eventoPartida}"  method="POST"  class="w-75" th:object="${evento}">
+                            <form action="#" th:action="@{/truco}"  method="POST"  class="w-75" th:object="${evento}">
                                 <button type="submit" value='truco' name="truco" >TRUCO</button>
                              </form>
                          </div>
                          <div class="option-container" th:if="${evento== 'Le canto Truco'}">
-                             <form action="#" th:action="@{/eventoPartida}"  method="POST"  class="w-75" th:object="${evento}">
+                             <form action="#" th:action="@{/retruco}"  method="POST"  class="w-75" th:object="${evento}">
                                    <button Type="Submit" value="retruco"  name="retruco" >RETRUCO</button>
                                  <input  value="retruco"  name="retruco">
                              </form>
                          </div>
                          <div class="option-container" th:if="${evento== 'Le canto ReTruco'}">
-                             <form action="#" th:action="@{/eventoPartida}"  method="POST"  class="w-75" th:object="${evento}">
+                             <form action="#" th:action="@{/vale_cuatro}"  method="POST"  class="w-75" th:object="${evento}">
                                    <button Type="Submit" value="vale_cuatro"  name="vale_cuatro" >VALE CUATRO</button>
                              </form>
                          </div>
@@ -121,9 +121,10 @@
                                    <button Type="Submit" value="falta_envido" name="falta_envido" >FALTA ENVIDO</button>
                              </form>
                          </div>
-                     <div th:if="${evento != null}" class="alert alert-danger" >
-                             <p th:text="${evento}"></p>
 
+                     <div th:if="${evento != null   }" class="alert alert-danger" >
+                             <p th:text="${evento}"></p>
+                            <div th:if=" || evento== 'Quiero' || evento== 'No Quiero' || evento== 'Me voy al maso'" class="alert alert-danger">
                          <div class="option-container">
                              <form action="#" th:action="@{/eventoJugador}"  method="POST"  class="w-75" th:object="${evento}">
                                    <button Type="Submit"  value="quiero" name="quiero" >QUIERO</button>
@@ -140,6 +141,7 @@
                              </form>
                          </div>
 
+                     </div>
                      </div>
                  </div>
 

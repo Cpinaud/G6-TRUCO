@@ -8,6 +8,10 @@ public class DatosEvento {
     EventoPartida eventoPartida;
     Boolean quiero;
 
+    public DatosEvento(EventoPartida eventoPartida) {
+        this.eventoPartida=eventoPartida;
+    }
+
     public Usuario getUsuariocanta() {
         return usuariocanta;
     }

@@ -17,6 +17,11 @@ public class EventoPartida {
         this.evento=evento;
     }
 
+    public EventoPartida(String evento, Integer valor) {
+        this.evento=evento;
+        this.valor=valor;
+    }
+
     public String getevento() {
         return evento;
     }

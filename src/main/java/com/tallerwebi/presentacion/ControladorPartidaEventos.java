@@ -21,8 +21,89 @@ public class ControladorPartidaEventos {
         this.servicioPartida = servicioPartida;
 
     }*/
+@RequestMapping(path = "/truco", method = RequestMethod.POST)
+public ModelAndView eventotruco() {
+    ModelAndView model = new ModelAndView();
+    EventoPartida eventoPartida = new EventoPartida("truco",2);
+    datosEvento = new DatosEvento(eventoPartida);
+    model.addObject("evento", "Le canto Truco");
+    model.setViewName("partida");
+    return model;
+}
+    @RequestMapping(path = "/retruco", method = RequestMethod.POST)
+    public ModelAndView eventoretruco() {
+        ModelAndView model = new ModelAndView();
+        EventoPartida eventoPartida = new EventoPartida("retruco",3);
+        datosEvento = new DatosEvento(eventoPartida);
+        model.addObject("evento", "Le canto Retruco");
+        model.setViewName("partida");
+        return model;
+    }
 
-    @RequestMapping(path = "/eventoPartida", method = RequestMethod.POST)
+    @RequestMapping(path = "/vale_cuatro", method = RequestMethod.POST)
+    public ModelAndView eventovale_cuatro() {
+        ModelAndView model = new ModelAndView();
+        EventoPartida eventoPartida = new EventoPartida("vale_cuatro",4);
+        datosEvento = new DatosEvento(eventoPartida);
+        model.addObject("evento", "Le canto Vale Cuatro");
+        model.setViewName("partida");
+        return model;
+    }
+
+    @RequestMapping(path = "/envido", method = RequestMethod.POST)
+    public ModelAndView eventoenvido() {
+        ModelAndView model = new ModelAndView();
+        EventoPartida eventoPartida = new EventoPartida("envido",2);
+        datosEvento = new DatosEvento(eventoPartida);
+        model.addObject("evento", "Le canto Envido");
+        model.setViewName("partida");
+        return model;
+    }
+
+    @RequestMapping(path = "/real_envido", method = RequestMethod.POST)
+    public ModelAndView eventoreal_envido() {
+        ModelAndView model = new ModelAndView();
+        EventoPartida eventoPartida = new EventoPartida("real_envido",3);
+        datosEvento = new DatosEvento(eventoPartida);
+        model.addObject("evento", "Le canto Real Envido");
+        model.setViewName("partida");
+        return model;
+    }
+
+
+    //como obtener la cantidad de puntos faltantes para ganar para calcular el valor.
+    @RequestMapping(path = "/falta_envido", method = RequestMethod.POST)
+    public ModelAndView eventofalta_envido() {
+        ModelAndView model = new ModelAndView();
+        EventoPartida eventoPartida = new EventoPartida("falta_envido",10);
+        datosEvento = new DatosEvento(eventoPartida);
+        model.addObject("evento", "Le canto Real Envido");
+        model.setViewName("partida");
+        return model;
+    }
+
+    @RequestMapping(path = "/quiero", method = RequestMethod.POST)
+    public ModelAndView eventoquiero() {
+        ModelAndView model = new ModelAndView();
+        model.addObject("evento", "Quiero");
+        model.setViewName("partida");
+        return model;
+    }
+    @RequestMapping(path = "/no_quiero", method = RequestMethod.POST)
+    public ModelAndView eventono_quiero() {
+        ModelAndView model = new ModelAndView();
+        model.addObject("evento", "No Quiero");
+        model.setViewName("partida");
+        return model;
+    }
+    @RequestMapping(path = "/al_maso", method = RequestMethod.POST)
+    public ModelAndView eventoal_maso() {
+        ModelAndView model = new ModelAndView();
+        model.addObject("evento", "Me voy al maso");
+        model.setViewName("partida");
+        return model;
+    }
+    /*@RequestMapping(path = "/eventoPartida", method = RequestMethod.POST)
     public ModelAndView eventoPartida(@ModelAttribute("evento")EventoPartida eventoPartida) {
         ModelAndView model = new ModelAndView();
 
@@ -84,4 +165,6 @@ public class ControladorPartidaEventos {
             }
             return model;
     }
+
+     */
 }
