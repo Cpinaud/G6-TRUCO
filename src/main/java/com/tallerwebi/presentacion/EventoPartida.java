@@ -8,9 +8,9 @@ import javax.persistence.Id;
 public class EventoPartida {
 
 
-    private String evento;
+    public String evento;
 
-    private Integer valor;
+    public Integer valor;
     public EventoPartida(){
     }
     public EventoPartida(String evento){
