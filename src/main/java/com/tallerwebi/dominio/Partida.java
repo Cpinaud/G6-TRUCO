@@ -12,16 +12,16 @@ public class Partida {
     private List<Ronda> rondas;
 
     
-    public Partida(Usuario usuario, String cantidadDejugadores) {
-        this.cantidadDejugadores = Integer.valueOf(cantidadDejugadores);
+    public Partida(Usuario usuario, Integer cantidadDejugadores) {
+        this.cantidadDejugadores = cantidadDejugadores;
         equipos = new ArrayList<>();
         rondas = new ArrayList<>();
         jugadores = new ArrayList<>();
-        jugadores.add(usuario);
         agregarEquipo(usuario);
     }
 
-    private void agregarEquipo(Usuario usuario) {
+    public void agregarEquipo(Usuario usuario) {
+        jugadores.add(usuario);
         if(jugadores.size() == 1) equipos.add(new Equipo(1, usuario));
         else if(jugadores.size() == 2) equipos.add(new Equipo(2, usuario));
         else if(jugadores.size() == 3 || jugadores.size() == 5) equipos.get(1).agregarJugador(usuario);
@@ -29,7 +29,19 @@ public class Partida {
     }
 
 
-    private void iniciarRonda(List<Carta> cartas) {
-        rondas.add(new Ronda(equipos, jugadores));
+    public void iniciarRonda(List<Carta> cartas) {
+        rondas.add(new Ronda(equipos, jugadores, cartas));
+    }
+
+    public int obtenerCantidadDeJugadores() {
+        return jugadores.size();
+    }
+
+    public Ronda obtenerRondaActual() {
+        return rondas.get(rondas.size()-1);
+    }
+
+    public boolean buscarUsuario(Usuario usuario) {
+        return jugadores.contains(usuario);
     }
 }

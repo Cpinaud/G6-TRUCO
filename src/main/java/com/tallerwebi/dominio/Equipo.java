@@ -14,6 +14,7 @@ public class Equipo {
     public Equipo(int id, Usuario jugador) {
         this.id = id;
         this.puntos = 0;
+        jugadores = new ArrayList<>();
         jugadores.add(jugador);
     }
 

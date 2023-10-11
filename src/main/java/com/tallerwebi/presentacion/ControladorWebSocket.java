@@ -1,7 +1,6 @@
 package com.tallerwebi.presentacion;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tallerwebi.config.MyChannelInterception;
 import com.tallerwebi.dominio.MensajeEnviado;
 import com.tallerwebi.dominio.MensajeRecibido;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -11,11 +10,6 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class ControladorWebSocket {
 
-    MyChannelInterception channelInterception;
-
-    public ControladorWebSocket(MyChannelInterception channelInterception) {
-        this.channelInterception = channelInterception;
-    }
 
     @MessageMapping("/chat")
     @SendTo("/topic/messages")
@@ -25,9 +19,6 @@ public class ControladorWebSocket {
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(mensajeEnviado);
 
-        //agregado hoy
-
-        int playerCount = channelInterception.getCantidadDeJugadores();
 
         return json;
     }

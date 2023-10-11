@@ -71,20 +71,20 @@
                      <div class="miscartas">
                          <div class="miCarta">
                              <div>
-                                 <p>7</p>
-                                 <img th:src="@{/assets/espadas.png}"  class="img-fluid carta-img" />
+                                 <p th:text="${carta1.imagen}">7</p>
+                                 <img th:src="@{/assets/cartas/__${carta1.imagen}__}"  class="img-fluid carta-img" />
                              </div>
                          </div>
                          <div class="miCarta">
                              <div>
-                                 <p>1</p>
-                                 <img th:src="@{/assets/espadas.png}"  class="img-fluid carta-img" />
+                                 <p th:text="${carta2.imagen}">7</p>
+                                 <img th:src="@{/assets/cartas/__${carta2.imagen}__}"  class="img-fluid carta-img" />
                              </div>
                          </div>
                          <div class="miCarta">
                              <div>
-                                 <p>5</p>
-                                 <img th:src="@{/assets/espadas.png}"  class="img-fluid carta-img" />
+                                 <p th:text="${carta3.imagen}">7</p>
+                                 <img th:src="@{/assets/cartas/__${carta3.imagen}__}"  class="img-fluid carta-img" />
                              </div>
                          </div>
                      </div>

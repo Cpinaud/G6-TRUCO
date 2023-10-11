@@ -1,7 +1,6 @@
 package com.tallerwebi.dominio;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Ronda {
@@ -12,9 +11,11 @@ public class Ronda {
     private List<Carta> cartasEnLaMesa;
 
 
-    public Ronda(List<Equipo> equipos, List<Usuario> jugadores) {
+    public Ronda(List<Equipo> equipos, List<Usuario> jugadores, List<Carta> baraja) {
         this.equipos = equipos;
         this.jugadores = jugadores;
+        this.baraja = baraja;
+        manoDelJugador = new ArrayList<>();
         cartasEnLaMesa = new ArrayList<>();
         repartir();
     }
@@ -22,13 +23,13 @@ public class Ronda {
 
     private void repartir() {
 
-        Carta cartaAleatoria = baraja.get((int) Math.floor(Math.random()));
-        baraja.remove(cartaAleatoria);
-
         for (int i = 0; i < jugadores.size(); i++) {
             List<Carta> cartasAleatorias = new ArrayList<>();
             for (int j = 0; j < 3; j++) {
+                int indiceRandom = (int) (Math.random() * baraja.size());
+                Carta cartaAleatoria = baraja.get(indiceRandom);
                 cartasAleatorias.add(cartaAleatoria);
+                baraja.remove(cartaAleatoria);
             }
             manoDelJugador.add(new Mano (jugadores.get(i), cartasAleatorias));
         }
@@ -70,4 +71,15 @@ public class Ronda {
         return jugadores.get(cartasEnLaMesa.indexOf(cartaMayor));
     }
 
+    public List<Carta> getBaraja() {
+        return baraja;
+    }
+
+    public List<Mano> getManoDelJugador() {
+        return manoDelJugador;
+    }
+
+    public List<Carta> getCartasEnLaMesa() {
+        return cartasEnLaMesa;
+    }
 }

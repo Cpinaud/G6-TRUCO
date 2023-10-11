@@ -1,12 +1,10 @@
 package com.tallerwebi.dominio;
 
-import com.tallerwebi.presentacion.DatosLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service("servicioPartida")
 @Transactional
@@ -22,7 +20,15 @@ public class ServicioPartida {
     }
 
 
-    public void crearPartida(Partida partida){
-        repositorioPartida.crearPartida(partida);
+    public void crearPartida(Usuario usuario, int cantidadJugadoresInt){
+        repositorioPartida.crearPartida(usuario, cantidadJugadoresInt);
     };
+
+    public List<Carta> obtenerManoDelJugador(Usuario usuario){
+        return repositorioPartida.obtenerManoDelJugador(usuario);
+    };
+
+    public Integer obtenerCantDeJugadores(){
+        return repositorioPartida.obtenerCantidadDeJugadores();
+    }
 }
