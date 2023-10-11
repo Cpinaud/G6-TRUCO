@@ -19,8 +19,8 @@ public class ControladorPartida {
     }
 
     @RequestMapping("/iniciarPartida")
-    public void iniciarPartida(HttpServletRequest request){
-       servicioPartida.crearPartida(new Partida((Usuario) request.getSession().getAttribute("usuario")));
+    public void iniciarPartida(HttpServletRequest request,  String cantidadDejugadores){
+       servicioPartida.crearPartida(new Partida((Usuario) request.getSession().getAttribute("usuario"), cantidadDejugadores));
     };
 
 }

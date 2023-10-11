@@ -8,13 +8,16 @@ public class Equipo {
 
     private int puntos;
 
+    private List<Equipo> equipos;
     private List<Usuario> jugadores;
 
-    public Equipo(int id, int puntos, List<Usuario> jugadores) {
+    public Equipo(int id, Usuario jugador) {
         this.id = id;
-        this.puntos = puntos;
-        this.jugadores  = new ArrayList<>();
+        this.puntos = 0;
+        jugadores.add(jugador);
     }
+
+
 
     public int getId() {
         return id;
