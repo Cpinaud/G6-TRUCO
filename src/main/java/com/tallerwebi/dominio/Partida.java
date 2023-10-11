@@ -4,12 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Partida {
-    private int id;
     private List<Equipo> equipos;
 
+    
+    public Partida(Usuario usuario) {
+        equipos = new ArrayList<>();
+        agregarEquipo(usuario);
+    }
 
-    public Partida(int id, Equipo equipos) {
-        this.id = id;
-        this.equipos = new ArrayList<>();
+    private void agregarEquipo(Usuario usuario) {
+
+
+        if(equipos.get(0) == null){
+            equipos.get(0).agregarJugador(usuario);
+        }else{
+            equipos.get(1).agregarJugador(usuario);
+        }
+
     }
 }

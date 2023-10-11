@@ -41,4 +41,8 @@ public class Equipo {
     public void setJugadores(List<Usuario> jugadores) {
         this.jugadores = jugadores;
     }
+
+    public void agregarJugador(Usuario jugador) {
+        jugadores.add(jugador);
+    }
 }

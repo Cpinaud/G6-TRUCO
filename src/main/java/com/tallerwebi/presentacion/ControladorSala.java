@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ControladorSala {
     private ServicioSala servicioSala;
-    private ServicioUsuario servicioUsuario;
     @Autowired
     public ControladorSala(ServicioSala servicioSala) {
         this.servicioSala = servicioSala;
@@ -35,7 +34,6 @@ public class ControladorSala {
     @RequestMapping(path = "/crear_sala", method = RequestMethod.POST)
     public ModelAndView crearsala()
     {
-
         return new ModelAndView("redirect:/iniciarPartida");
     }
 
