@@ -13,6 +13,8 @@ public class Sala {
     private Long id_sala;
     private Integer cantidadMaximaJugadores;
     private Integer Cantidad_de_jugadores_en_sala;
+
+
     public Sala(Long id, Integer cantidadMaximaJugadores) {
         this.id_sala =id;
         this.cantidadMaximaJugadores =cantidadMaximaJugadores;

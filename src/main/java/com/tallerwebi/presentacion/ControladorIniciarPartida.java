@@ -1,14 +1,9 @@
-package com.tallerwebi.presentacion;
+/* package com.tallerwebi.presentacion;
 
-import com.tallerwebi.dominio.Usuario;
-import com.tallerwebi.dominio.excepcion.UsuarioExistente;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class ControladorIniciarPartida {
 
@@ -26,4 +21,4 @@ public class ControladorIniciarPartida {
     }
 
 
-}
+}*/
