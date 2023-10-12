@@ -21,24 +21,24 @@ public class RepositorioSalaImpl implements RepositorioSala {
 
     @Override
     public boolean guardarSala(Sala sala) {
-        if(!Salaexistente(sala.getNombre_sala())){
+        if(!Salaexistente(sala.getId_sala())){
             sessionFactory.getCurrentSession().save(sala);
             return true;
         }
         return false;
     }
     @Override
-    public boolean Salaexistente(String nombre_sala) {
-        if (buscarsala(nombre_sala)!=null){
+    public boolean Salaexistente(Long id) {
+        if (buscarsala(id)!=null){
             return true;
         }
         return false;
     }
 
     @Override
-    public Sala buscarsala(String nombre) {
+    public Sala buscarsala(Long id) {
         return (Sala) sessionFactory.getCurrentSession().createCriteria(Sala.class)
-                .add(Restrictions.eq("nombre_sala", nombre))
+                .add(Restrictions.eq("id_sala", id))
                 .uniqueResult();
     }
     @Override

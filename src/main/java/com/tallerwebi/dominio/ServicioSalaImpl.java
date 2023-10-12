@@ -20,7 +20,7 @@ public class ServicioSalaImpl implements ServicioSala {
 
     @Override
     public boolean crearsala(Sala sala) {
-        if(!Salaexistente(sala)){
+        if(Salaexistente(sala)){
             serviciosalaDao.guardarSala(sala);
             return true;
         }
@@ -28,12 +28,12 @@ public class ServicioSalaImpl implements ServicioSala {
     }
 
     public boolean Salaexistente(Sala sala) {
-        return serviciosalaDao.Salaexistente(sala.getNombre_sala());
+        return serviciosalaDao.Salaexistente(sala.getId_sala());
     }
 
     @Override
-    public Sala obtenersala(String nombre_sala) {
-        return (Sala) serviciosalaDao.buscarsala(nombre_sala);
+    public Sala obtenersala(Long id) {
+        return (Sala) serviciosalaDao.buscarsala(id);
     }
 
     @Override

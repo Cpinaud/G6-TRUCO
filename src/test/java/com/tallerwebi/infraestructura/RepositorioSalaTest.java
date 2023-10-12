@@ -31,26 +31,39 @@ import static org.mockito.Mockito.mock;
 @ContextConfiguration(classes = {SpringWebTestConfig.class, HibernateTestConfig.class})
 public class RepositorioSalaTest {
 
-    private Sala sala;
+
     @Autowired
     private RepositorioSala repositorio;
 
-    @BeforeEach
-    public void init() {
-        sala = new Sala("pepe",2);
+
+
+    @Transactional
+    @Rollback
+    @Test
+    public void QueSePuedaGuardarUnaSala() {
+        Sala sala=new Sala();
+        sala.setCantidadMaximaJugadores(2);
+        sala.setCantidad_de_jugadores_en_sala(1);
+
+        assertTrue(repositorio.guardarSala(sala));
+
+
     }
 
     @Transactional
     @Rollback
     @Test
-    public void QueBusqueUnaSalaPorNombre() {
-
+    public void QueBusqueUnaSalaPorId() {
+        Sala sala=new Sala();
+        sala.setCantidadMaximaJugadores(2);
+        sala.setCantidad_de_jugadores_en_sala(1);
         repositorio.guardarSala(sala);
 
-        assertEquals(sala.getNombre_sala(),repositorio.buscarsala(sala.getNombre_sala()).getNombre_sala());
+        assertEquals(sala.getId_sala(),repositorio.buscarsala(sala.getId_sala()).getId_sala());
 
 
     }
+
 
     @Transactional
     @Rollback

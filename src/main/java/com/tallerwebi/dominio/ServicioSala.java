@@ -7,7 +7,7 @@ public interface ServicioSala {
     boolean crearsala(Sala sala);
 
 
-    Sala obtenersala(String nombre);
+    Sala obtenersala(Long id);
 
     List<Sala> obtenerlistadeSalas();
 }
