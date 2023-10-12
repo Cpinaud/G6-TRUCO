@@ -39,6 +39,7 @@ public class Partida {
     }
 
     public Ronda obtenerRondaActual() {
+
         return rondas.get(rondas.size()-1);
     }
 
@@ -47,5 +48,16 @@ public class Partida {
             if (jugadores.get(i).getId().equals(usuario.getId())) return true;
         }
         return false;
+    }
+
+    public Usuario buscarUsuarioPorId(Long id) {
+        for (int i = 0; i < jugadores.size(); i++) {
+            if (jugadores.get(i).getId().equals(id)) return jugadores.get(i);
+        }
+        return null;
+    }
+
+    public boolean verficarSiLaRondaEstaIniciado() {
+        return rondas.isEmpty() || obtenerRondaActual().validarSiLaRondaTermino();
     }
 }

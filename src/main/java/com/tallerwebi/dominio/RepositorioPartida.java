@@ -9,4 +9,10 @@ public interface RepositorioPartida {
     List<Carta> obtenerManoDelJugador(Long usuario);
 
     Integer obtenerCantidadDeJugadores();
+
+    void jugarCarta(Long usuario, Integer carta);
+
+    boolean verficarSiLaRondaEstaIniciado();
+
+    void iniciarRonda();
 }

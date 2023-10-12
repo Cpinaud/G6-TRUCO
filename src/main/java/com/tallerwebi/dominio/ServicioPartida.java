@@ -31,4 +31,16 @@ public class ServicioPartida {
     public Integer obtenerCantDeJugadores(){
         return repositorioPartida.obtenerCantidadDeJugadores();
     }
+
+    public void jugarCarta(Integer carta, Long usuario) {
+        repositorioPartida.jugarCarta(usuario, carta);
+    }
+
+    public boolean verficarSiLaRondaEstaIniciado() {
+        return repositorioPartida.verficarSiLaRondaEstaIniciado();
+    }
+
+    public void iniciarRonda() {
+        repositorioPartida.iniciarRonda();
+    }
 }

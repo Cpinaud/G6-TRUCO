@@ -1,9 +1,9 @@
 package com.tallerwebi.presentacion;
 
-import com.tallerwebi.dominio.Partida;
-import com.tallerwebi.dominio.ServicioPartida;
-import com.tallerwebi.dominio.Usuario;
+import com.tallerwebi.dominio.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +30,11 @@ public class ControladorPartida {
         ModelAndView model = new ModelAndView();
         request.getSession().setAttribute("cantidadDeJugadores", cantidadJugadores);
         model.addObject("cantidadJugadoresInt", cantidadJugadores);
+
+//        int cantidadJugadoresInt = Integer.parseInt(cantidadJugadores);
+//        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+//        servicioPartida.crearPartida(usuario, 2);
+
         model.setViewName("salas");
         return model;
     }
@@ -40,33 +45,39 @@ public class ControladorPartida {
         String cantidadDeJugadores = (String) request.getSession().getAttribute("cantidadDeJugadores");
 
         int cantidadJugadoresInt = Integer.parseInt(cantidadDeJugadores);
+        servicioPartida.crearPartida(usuario, 2);
 
-//        int cantidadJugadoresInt = Integer.parseInt(cantidadDejugadores);
-        //int cantidadJugadoresInt = 1;
 
-        servicioPartida.crearPartida(usuario, cantidadJugadoresInt);
 
-        if (servicioPartida.obtenerCantDeJugadores() == cantidadJugadoresInt){
 
             model.addObject("carta1", servicioPartida.obtenerManoDelJugador(usuario.getId()).get(0));
             model.addObject("carta2", servicioPartida.obtenerManoDelJugador(usuario.getId()).get(1));
             model.addObject("carta3", servicioPartida.obtenerManoDelJugador(usuario.getId()).get(2));
             model.addObject("usuario", usuario);
             model.addObject("cantidadJugadoresEnLaPartida", servicioPartida.obtenerCantDeJugadores());
-        }
+
 
         model.setViewName("partida");
         return model;
 
     };
-
-//    @PostMapping("/iniciar")
-//    public String mostrarTexto(@RequestParam("cantidadDejugadores") String cantidadDejugadores) {
+//    @RequestMapping("/partida")
+//    public ModelAndView tirarCarta(@RequestParam(name="carta")Integer carta, Long usuario){
 //        ModelAndView model = new ModelAndView();
-//        int cantidadJugadoresInt = Integer.parseInt(cantidadDejugadores);
-//        model.addObject("cantidadJugadoresInt", cantidadJugadoresInt);
-//        return "partida";
+//        servicioPartida.jugarCarta(carta, usuario);
+//
+//        model.setViewName("partida");
+//        return model;
 //    }
+
+    @MessageMapping("/chat")
+    @SendTo("/topic/messages")
+    public MensajeEnviado getMessages(MensajeRecibido mensajeRecibido) throws Exception {
+
+        //servicioPartida.jugarCarta(mensajeRecibido.getIdCarta(), mensajeRecibido.getUsuarioId());
+
+        return new MensajeEnviado(mensajeRecibido.getMessage());
+    }
 
 
 

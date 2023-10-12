@@ -5,11 +5,15 @@ public class MensajeRecibido {
     private String message;
     private Long usuarioId;
 
+    private Integer idCarta;
+
     public MensajeRecibido() {
     }
 
-    public MensajeRecibido(String message) {
+    public MensajeRecibido(String message, Long usuarioId, Integer idCarta) {
         this.message = message;
+        this.usuarioId = usuarioId;
+        this.idCarta = idCarta;
     }
 
     public String getMessage() {
@@ -24,4 +28,7 @@ public class MensajeRecibido {
         return usuarioId;
     }
 
+    public Integer getIdCarta() {
+        return idCarta;
+    }
 }
