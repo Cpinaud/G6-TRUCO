@@ -3,7 +3,7 @@ package com.tallerwebi.dominio;
 public class MensajeRecibido {
 
     private String message;
-    private Integer usuarioId;
+    private Long usuarioId;
 
     public MensajeRecibido() {
     }
@@ -20,7 +20,7 @@ public class MensajeRecibido {
         this.message = message;
     }
 
-    public Integer getUsuarioId() {
+    public Long getUsuarioId() {
         return usuarioId;
     }
 

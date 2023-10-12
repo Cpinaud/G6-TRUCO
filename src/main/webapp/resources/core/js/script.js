@@ -2,7 +2,6 @@ const stompClient = new StompJs.Client({
     brokerURL: 'ws://localhost:8080/spring/partidaBrocker'
 });
 
-let usuarioActual;
 
 stompClient.debug = function(str) {
     console.log(str)
@@ -11,7 +10,8 @@ stompClient.debug = function(str) {
 stompClient.onConnect = (frame) => {
     console.log('Connected: ' + frame);
     stompClient.subscribe('/topic/messages', (m) => {
-        console.log(JSON.parse(m.body).content);
+        console.log("Contenido --------------")
+        console.log(JSON.parse(m.body));
         let imageUrl = JSON.parse(m.body).content;
 
         // Encuentra la imagen en el documento o crea una nueva
@@ -24,9 +24,15 @@ stompClient.onConnect = (frame) => {
         // Establece el atributo src de la imagen
         imgElement.src = imageUrl;
 
-        // Agrega la imagen al div deseado
-        const div_tirada_jugador1 = document.getElementById("tirada_jugador2");
-        div_tirada_jugador1.appendChild(imgElement);
+
+        console.log("Usuario que envio = " + JSON.parse(m.body).usuario);
+
+        if(!JSON.parse(m.body).usuario){
+            // Agrega la imagen al div deseado
+            const div_tirada_jugador1 = document.getElementById("tirada_jugador2");
+            div_tirada_jugador1.appendChild(imgElement);
+        }
+
 
     });
 };
@@ -44,7 +50,7 @@ stompClient.activate();
 
 
 function moveImage(imageNumber, idUsuario) {
-    usuarioActual = idUsuario;
+
 
     // Obtén la imagen que se hizo clic
     var sourceImg = document.querySelector("#sourceDiv" + imageNumber + " img");
@@ -58,10 +64,11 @@ function moveImage(imageNumber, idUsuario) {
     // Limpia el contenido actual del elemento de destino
     destinationDiv.innerHTML = "";
 
+
     const imageUrl = sourceImg.getAttribute("src");
     stompClient.publish({
         destination: "/app/chat",
-        body: JSON.stringify({message: imageUrl, userId: idUsuario})
+        body: JSON.stringify({message: imageUrl, usuarioId: idUsuario})
     });
 
     // Agrega la imagen clonada al elemento de destino
