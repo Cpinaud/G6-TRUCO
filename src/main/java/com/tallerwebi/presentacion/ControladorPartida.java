@@ -47,9 +47,11 @@ public class ControladorPartida {
 
         if (servicioPartida.obtenerCantDeJugadores() == cantidadJugadoresInt){
 
-            model.addObject("carta1", servicioPartida.obtenerManoDelJugador(usuario).get(0));
-            model.addObject("carta2", servicioPartida.obtenerManoDelJugador(usuario).get(1));
-            model.addObject("carta3", servicioPartida.obtenerManoDelJugador(usuario).get(2));
+            model.addObject("carta1", servicioPartida.obtenerManoDelJugador(usuario.getId()).get(0));
+            model.addObject("carta2", servicioPartida.obtenerManoDelJugador(usuario.getId()).get(1));
+            model.addObject("carta3", servicioPartida.obtenerManoDelJugador(usuario.getId()).get(2));
+            model.addObject("usuario", usuario);
+            model.addObject("cantidadJugadoresEnLaPartida", servicioPartida.obtenerCantDeJugadores());
         }
 
         model.setViewName("partida");

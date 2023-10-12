@@ -2,6 +2,8 @@ const stompClient = new StompJs.Client({
     brokerURL: 'ws://localhost:8080/spring/partidaBrocker'
 });
 
+let usuarioActual;
+
 stompClient.debug = function(str) {
     console.log(str)
 };
@@ -9,11 +11,23 @@ stompClient.debug = function(str) {
 stompClient.onConnect = (frame) => {
     console.log('Connected: ' + frame);
     stompClient.subscribe('/topic/messages', (m) => {
-        // console.log(JSON.parse(m.body).content);
-        // const messagesContainer = document.getElementById("chat-messages");
-        // const newMessage = document.createElement("p")
-        // newMessage.textContent = JSON.parse(m.body).content;
-        // messagesContainer.appendChild(newMessage);
+        console.log(JSON.parse(m.body).content);
+        let imageUrl = JSON.parse(m.body).content;
+
+        // Encuentra la imagen en el documento o crea una nueva
+        let imgElement = document.getElementById("imageElementId");
+        if (!imgElement) {
+            imgElement = document.createElement("img");
+            imgElement.id = "imageElementId";
+        }
+
+        // Establece el atributo src de la imagen
+        imgElement.src = imageUrl;
+
+        // Agrega la imagen al div deseado
+        const div_tirada_jugador1 = document.getElementById("tirada_jugador2");
+        div_tirada_jugador1.appendChild(imgElement);
+
     });
 };
 
@@ -28,15 +42,30 @@ stompClient.onStompError = (frame) => {
 
 stompClient.activate();
 
-// Take the value in the ‘message-input’ text field and send it to the server with empty headers.
-function sendMessage(){
 
-    // let input = document.getElementById("message");
-    // let message = input.value;
-    //
-    // stompClient.publish({
-    //     destination: "/app/chat",
-    //     body: JSON.stringify({message: message})
-    // });
+function moveImage(imageNumber, idUsuario) {
+    usuarioActual = idUsuario;
+
+    // Obtén la imagen que se hizo clic
+    var sourceImg = document.querySelector("#sourceDiv" + imageNumber + " img");
+
+    // Obtén el elemento de destino
+    var destinationDiv = document.getElementById("destinationDiv");
+
+    // Crea una copia de la imagen
+    var clonedImg = sourceImg.cloneNode(true);
+
+    // Limpia el contenido actual del elemento de destino
+    destinationDiv.innerHTML = "";
+
+    const imageUrl = sourceImg.getAttribute("src");
+    stompClient.publish({
+        destination: "/app/chat",
+        body: JSON.stringify({message: imageUrl, userId: idUsuario})
+    });
+
+    // Agrega la imagen clonada al elemento de destino
+    destinationDiv.appendChild(clonedImg);
+
 }
 

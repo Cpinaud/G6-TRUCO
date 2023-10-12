@@ -26,7 +26,7 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
     public void crearPartida(Usuario usuario, int cantidadJugadoresInt) {
 
         if (partida == null) partida = new Partida(usuario, cantidadJugadoresInt);
-        else if(partida.buscarUsuario(usuario) == false) partida.agregarEquipo(usuario);
+        else if(!partida.buscarUsuario(usuario)) partida.agregarEquipo(usuario);
 
         if (cantidadJugadoresInt == partida.obtenerCantidadDeJugadores()) {
             partida.iniciarRonda(obtenerBaraja());
@@ -37,11 +37,11 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
         return sessionFactory.getCurrentSession().createQuery("FROM Carta", Carta.class).list();
     }
 
-    public List<Carta> obtenerManoDelJugador(Usuario usuario){
+    public List<Carta> obtenerManoDelJugador(Long usuario){
         List<Mano> manos = partida.obtenerRondaActual().getManoDelJugador();
 
         for (int i = 0; i < manos.size(); i++) {
-            if (manos.get(i).getJugador() == usuario){
+            if (manos.get(i).getJugador().getId().equals(usuario)){
 
                 return manos.get(i).getCartasEnLaMano();
             }

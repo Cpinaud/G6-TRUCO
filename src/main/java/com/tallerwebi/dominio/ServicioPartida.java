@@ -24,7 +24,7 @@ public class ServicioPartida {
         repositorioPartida.crearPartida(usuario, cantidadJugadoresInt);
     };
 
-    public List<Carta> obtenerManoDelJugador(Usuario usuario){
+    public List<Carta> obtenerManoDelJugador(Long usuario){
         return repositorioPartida.obtenerManoDelJugador(usuario);
     };
 

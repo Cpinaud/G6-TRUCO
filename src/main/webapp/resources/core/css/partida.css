@@ -7,6 +7,7 @@ body {
     background-size: cover;
     object-position: center;
     font-family: Arial, sans-serif;
+    overflow: hidden;
 }
 
 /*Estilos para abandonar partida*/
@@ -83,7 +84,7 @@ body {
 
 .capa-superior {
     position: absolute;
-    width: 96.5%; /* Ajusta el ancho según tus necesidades */
+    width: 100%; /* Ajusta el ancho según tus necesidades */
     height: 100%; /* Ajusta la altura según tus necesidades */
     z-index: 2; /* Establece el valor z-index para la capa superior */
     display: flex;
@@ -96,8 +97,9 @@ body {
 
 .capa-superior-juego {
     position: absolute;
-    width: 80%; /* Ajusta el ancho según tus necesidades */
-    height: 50%; /* Ajusta la altura según tus necesidades */
+    top: 250px;
+    width: 500px; /* Ajusta el ancho según tus necesidades */
+    height: 400px; /* Ajusta la altura según tus necesidades */
     z-index: 3; /* Establece el valor z-index para la capa superior */
     display: flex;
     justify-content: center;
@@ -105,9 +107,11 @@ body {
 
 }
 .miscartas{
-    width: 30%;
-    height: 25%;
-    bottom: 1em;
+    width: 600px;
+    height: 400px;
+    max-height: 250px;
+    position: absolute;
+    left: 35%;
     align-self: flex-end;
     display: flex;
     flex-direction: row;
@@ -121,6 +125,7 @@ body {
     border-top-right-radius: 10px;
     padding:0.2em;
     border: 0.05em solid black;
+    height: 100%;
 }
 
 .miCarta div{
@@ -135,13 +140,7 @@ body {
     justify-content: flex-start;
 }
 
-.carta-img{
-    max-width: 80%; /* La imagen se ajustará al ancho máximo del contenedor */
-    height: auto;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
 
-}
 .carta img{
     max-width: 100%; /* La imagen se ajustará al ancho máximo del contenedor */
     height: auto;
@@ -149,7 +148,7 @@ body {
 }
 
 .scoreround{
-    width: 20%;
+    width: 250px;
     height: 70vh;
 }
 
@@ -322,7 +321,7 @@ body {
 }
 
 .jugada{
-    width: 60%;
+    width: 100%;
     height: 100%;
     boder:1px solid black;
     display: flex;
@@ -354,7 +353,7 @@ body {
 }
 
 .tirada{
-    width: 50%;
+    width: 85%;
     height: 80%;
     border:0.2em solid rgba(0,0,0, 0.5);
     border-radius:5%;
@@ -366,7 +365,8 @@ body {
     margin: 5px;
 }
 .image-container img {
-    width: 100px;
+    max-height: 100%;
+    width: 100%;
     position: absolute;
     top: 0;
     left: 0;
@@ -374,8 +374,20 @@ body {
     cursor: pointer;
 }
 #destinationDiv {
-    display: none; /* Inicialmente oculto */
-    position: relative;
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    height: 100%
+}
+
+@media (max-width: 1400px) {
+    .miscartas{
+        width: 500px;
+        left: 30%;
+    }
+}
+
+@media (max-width: 1000px) {
+   .miscartas{
+       width: 500px;
+       left: 20%;
+   }
 }

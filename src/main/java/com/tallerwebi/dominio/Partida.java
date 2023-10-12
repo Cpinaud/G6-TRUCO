@@ -3,6 +3,7 @@ package com.tallerwebi.dominio;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class Partida {
 
@@ -42,6 +43,9 @@ public class Partida {
     }
 
     public boolean buscarUsuario(Usuario usuario) {
-        return jugadores.contains(usuario);
+        for (int i = 0; i < jugadores.size(); i++) {
+            if (jugadores.get(i).getId().equals(usuario.getId())) return true;
+        }
+        return false;
     }
 }

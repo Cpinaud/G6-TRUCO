@@ -58,8 +58,8 @@
                 <div class="team container-fluid">
                     <img src="https://img.freepik.com/psd-gratis/ilustracion-3d-persona-gafas-sol-cabello-verde_23-2149436201.jpg?w=740&t=st=1694135110~exp=1694135710~hmac=d3b9cb04b6ba9c8a43ac267beac353c542ac84f1813f2044b3862961af21ff63" class="img-fluid  rounded" >
                     <div>
-                        <div class="team-name">Equipo 1</div>
-                        <div class="team-points">10</div>
+                        <div class="team-name">Cantidad de jugadores </div>
+                        <div class="team-points" th:text="${cantidadJugadoresEnLaPartida}"></div>
                     </div>
                 </div>
                 <div class="team container-fluid">
@@ -77,24 +77,21 @@
                 <div class="mano">RONDA3</div>
             </div>
         </div>
-        <div class="miscartas">
+        <div th:if="carta1" class="miscartas">
             <div class="miCarta image-container" id="sourceDiv1">
                 <div>
-                    <p th:text="${carta1.imagen}">7</p>
-                    <img th:src="@{/assets/cartas/__${carta1.imagen}__}"  class="img-fluid carta-img" th:ondblclick="'moveImage(1)'" />
+                    <img th:src="@{/assets/cartas/__${carta1.imagen}__}"  class="img-fluid carta-img" th:onclick="'moveImage(1, ' + ${usuario.id} + ' )'" />
                 </div>
             </div>
             <div class="miCarta image-container" id="sourceDiv2">
                 <div>
-                    <p th:text="${carta2.imagen}">7</p>
-                    <img th:src="@{/assets/cartas/__${carta2.imagen}__}"  class="img-fluid carta-img" th:ondblclick="'moveImage(2)'"/>
+                    <img th:src="@{/assets/cartas/__${carta2.imagen}__}"  class="img-fluid carta-img" th:onclick="'moveImage(2, ' + ${usuario.id} + ' )'"/>
                 </div>
             </div>
             <div class="miCarta image-container" id="sourceDiv3">
 
                 <div>
-                    <p th:text="${carta3.imagen}">7</p>
-                    <img th:src="@{/assets/cartas/__${carta3.imagen}__}"  class="img-fluid carta-img" th:ondblclick="'moveImage(3)'"/>
+                    <img th:src="@{/assets/cartas/__${carta3.imagen}__}"  class="img-fluid carta-img" th:onclick="'moveImage(3, ' + ${usuario.id} + ' )'"/>
                 </div>
             </div>
         </div>
@@ -136,8 +133,9 @@
             <div th:attr="class=${cantidadJugadoresInt>=4 ? 'jugada1 jugada-true' : 'jugada-false'}">
                 <div class="tirada"></div>
             </div>
-            <div  class="jugada5  jugada-true">
-                <div class="tirada"></div>
+            <div  class="jugada5  jugada-true" id="tirada_jugador2">
+                <div class="tirada">
+                   </div>
             </div>
             <div th:attr="class=${cantidadJugadoresInt>=4 ? 'jugada2 jugada-true' : 'jugada-false'}">
                 <div class="tirada"></div>
@@ -146,7 +144,7 @@
                 <div class="tirada"></div>
             </div>
             <div  class="jugada6 jugada-true">
-                <div id="destinationDiv" class="image-container" style="display: none;"></div>
+                <div id="destinationDiv" class="image-container"></div>
             </div>
             <div th:attr="class=${cantidadJugadoresInt==6 ? 'jugada4 jugada-true' : 'jugada-false'}">
                 <div class="tirada"></div>
@@ -157,34 +155,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
 <script th:src="@{/js/script.js}"></script>
 <script th:inline="javascript">
-    function moveImage(imageNumber) {
-        // Obtener el div de origen y destino
-        var sourceDiv = document.getElementById("sourceDiv" + imageNumber);
-        var destinationDiv = document.getElementById("destinationDiv");
-
-        // Comprobar si el div de origen ya está oculto
-        if (sourceDiv.style.display === "none") {
-            return;
-        }
-
-        // Clonar la imagen
-        var image = sourceDiv.getElementsByTagName("img")[0];
-        var clonedImage = image.cloneNode(true);
-
-        // Agregar una clase para el posicionamiento absoluto
-        clonedImage.classList.add("image-overlay");
-
-        // Mover la imagen clonada al div de destino
-        destinationDiv.appendChild(clonedImage);
-
-        // Ocultar el div de origen
-        sourceDiv.style.display = "none";
-
-        // Mostrar el div de destino
-        destinationDiv.style.display = "block";
-
-
-    }
 
     document.getElementById('mostrarPopup').addEventListener('click', function () {
         document.getElementById('popup').style.display = 'flex';

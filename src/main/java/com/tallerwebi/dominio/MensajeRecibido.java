@@ -3,6 +3,7 @@ package com.tallerwebi.dominio;
 public class MensajeRecibido {
 
     private String message;
+    private Integer usuarioId;
 
     public MensajeRecibido() {
     }
@@ -18,4 +19,9 @@ public class MensajeRecibido {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    public Integer getUsuarioId() {
+        return usuarioId;
+    }
+
 }

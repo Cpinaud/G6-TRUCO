@@ -6,7 +6,7 @@ public interface RepositorioPartida {
 
 
     void crearPartida(Usuario usuario, int cantidadJugadoresInt);
-    List<Carta> obtenerManoDelJugador(Usuario usuario);
+    List<Carta> obtenerManoDelJugador(Long usuario);
 
     Integer obtenerCantidadDeJugadores();
 }
