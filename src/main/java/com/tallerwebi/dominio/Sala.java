@@ -11,31 +11,45 @@ public class Sala {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_sala;
+    private String nombre_sala;
     private Integer cantidadMaximaJugadores;
     private Integer Cantidad_de_jugadores_en_sala;
 
 
-    public Sala(Long id, Integer cantidadMaximaJugadores) {
-        this.id_sala =id;
+
+    public Sala(String nombre_sala, Integer cantidadMaximaJugadores, Integer Cantidad_de_jugadores_en_sala) {
         this.cantidadMaximaJugadores =cantidadMaximaJugadores;
-        this.Cantidad_de_jugadores_en_sala = 1;
+        this.Cantidad_de_jugadores_en_sala =Cantidad_de_jugadores_en_sala;
+        this.nombre_sala =nombre_sala;
 
     }
-    public Sala(Long id, Integer cantidadMaximaJugadores, Integer Cantidad_de_jugadores_en_sala) {
-        this.id_sala =id;
-        this.cantidadMaximaJugadores =cantidadMaximaJugadores;
+
+
+    public Sala(String nombre_sala, Integer cantidadMaximaJugadores) {
+        this.nombre_sala =nombre_sala;
         this.Cantidad_de_jugadores_en_sala =Cantidad_de_jugadores_en_sala;
 
     }
-
+    
     public Sala(Integer cantidadMaximaJugadores, Integer Cantidad_de_jugadores_en_sala) {
-        this.cantidadMaximaJugadores =cantidadMaximaJugadores;
+        this.Cantidad_de_jugadores_en_sala =Cantidad_de_jugadores_en_sala;
+        this.nombre_sala =nombre_sala;
+
+    }
+    public Sala(Integer cantidadMaximaJugadores) {
         this.Cantidad_de_jugadores_en_sala =Cantidad_de_jugadores_en_sala;
 
     }
     public Sala() {
     }
 
+    public String getNombre_sala() {
+        return nombre_sala;
+    }
+
+    public void setNombre_sala(String nombre_sala) {
+        this.nombre_sala = nombre_sala;
+    }
 
     public Long getId_sala() {
         return id_sala;

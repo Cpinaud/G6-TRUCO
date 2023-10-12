@@ -11,13 +11,30 @@
 <body>
 <div class="overlay">
     <div class="formulario">
-        <h2>Esperando al resto de jugadores</h2>
+        <h2>Salas</h2>
 
-        <p th:text="${cantidadJugadoresInt}"></p>
+        <tr   th:if="${ninguna_sala == null}" >
+        <tr th:each="salas : ${ListadeSalas}">
+        <div class="container">
+            <form action="#" th:action="@{/ingresar_a_sala}"  method="POST"  class="w-75" th:object="${nombre_sala}">
+        <span th:text="${salas.nombre_sala}" name="nombre_sala"> </span>
+        <br>
+        <span th:text="${salas.cantidad_de_jugadores_en_sala}">  </span>
+             <p>/</p>
+            <span th:text="${salas.cantidadMaximaJugadores}">  </span>
 
-        <form action="#" th:action="@{/partida}"  method="POST"  class="w-75">
+            </form>
+        </div>
 
-            <button id="btn-login" class="btn" Type="Submit">Sala completa</button>
+        </tr>
+        </tr>
+
+
+        <form action="#" th:action="@{/crear_sala}"  method="POST"  class="w-75">
+
+            <p th:if="${ninguna_sala != null}" class="alert alert-danger" th:text="'Error ' + ${ninguna_sala}">
+            </p>
+            <button id="btn-login" class="btn" Type="Submit">Crear Sala</button>
 
 
 
