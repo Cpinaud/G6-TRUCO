@@ -51,7 +51,7 @@ stompClient.activate();
 
 function moveImage(imageNumber, idUsuario) {
 
-
+    var sourceDiv = document.getElementById("sourceDiv" + imageNumber);
     // Obtén la imagen que se hizo clic
     var sourceImg = document.querySelector("#sourceDiv" + imageNumber + " img");
 
@@ -74,5 +74,6 @@ function moveImage(imageNumber, idUsuario) {
     // Agrega la imagen clonada al elemento de destino
     destinationDiv.appendChild(clonedImg);
 
-}
+    sourceDiv.style.display = "none";
 
+}

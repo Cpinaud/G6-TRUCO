@@ -25,9 +25,11 @@ public class Ronda {
 
         for (int i = 0; i < jugadores.size(); i++) {
             List<Carta> cartasAleatorias = new ArrayList<>();
+
             for (int j = 0; j < 3; j++) {
                 int indiceRandom = (int) (Math.random() * baraja.size());
                 Carta cartaAleatoria = baraja.get(indiceRandom);
+
                 cartasAleatorias.add(cartaAleatoria);
                 baraja.remove(cartaAleatoria);
             }
@@ -36,12 +38,31 @@ public class Ronda {
     }
 
     public void jugarCarta(Usuario usuario, Carta carta){
-        cartasEnLaMesa.add(carta);
+        if (!validarSiYaTiroCarta(usuario)) {
+            cartasEnLaMesa.add(carta);
+            if (validarSiTerminoMano()) {
+                terminarMano();
+            }
+        }
+
     }
+
+    private boolean validarSiYaTiroCarta(Usuario usuario) {
+        for (int i = 0; i < manoDelJugador.size(); i++) {
+           if( manoDelJugador.get(i).getJugador() == usuario) return true;
+        }
+        return false;
+    }
+
+    private boolean validarSiTerminoMano() {
+        return manoDelJugador.size() == jugadores.size();
+    };
 
     public void terminarMano(){
         Usuario  ganador = calcularGanador();
+        manoDelJugador.clear();
         ordenarJugadores(ganador);
+        repartir();
     }
 
     private void ordenarJugadores(Usuario ganador) {
@@ -81,5 +102,9 @@ public class Ronda {
 
     public List<Carta> getCartasEnLaMesa() {
         return cartasEnLaMesa;
+    }
+
+    public boolean validarSiLaRondaTermino() {
+        return cartasEnLaMesa.size() == jugadores.size() * 3;
     }
 }
