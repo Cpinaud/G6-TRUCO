@@ -3,6 +3,8 @@ const stompClient = new StompJs.Client({
 });
 
 
+
+
 stompClient.debug = function(str) {
     console.log(str)
 };
@@ -10,8 +12,8 @@ stompClient.debug = function(str) {
 stompClient.onConnect = (frame) => {
     console.log('Connected: ' + frame);
     stompClient.subscribe('/topic/messages', (m) => {
-        console.log("Contenido --------------")
-        console.log(JSON.parse(m.body));
+
+        var mensajeEnviado = JSON.parse(m.body)
         let imageUrl = JSON.parse(m.body).content;
 
         // Encuentra la imagen en el documento o crea una nueva
@@ -24,14 +26,26 @@ stompClient.onConnect = (frame) => {
         // Establece el atributo src de la imagen
         imgElement.src = imageUrl;
 
+        console.log("----------------Contenido --------------")
+        console.log(mensajeEnviado);
+        console.log("Usuario que envio = " + mensajeEnviado.idUsuario);
 
-        console.log("Usuario que envio = " + JSON.parse(m.body).usuario);
+        const usuarioGuardado = sessionStorage.getItem('usuarioSession');
 
-        if(!JSON.parse(m.body).usuario){
-            // Agrega la imagen al div deseado
-            const div_tirada_jugador1 = document.getElementById("tirada_jugador2");
-            div_tirada_jugador1.appendChild(imgElement);
-        }
+
+            // Convierte la cadena JSON de vuelta a un objeto.
+            const usuario = JSON.parse(usuarioGuardado);
+
+            console.log('Usuario actual:', usuario);
+
+            if(usuario != mensajeEnviado.idUsuario){
+                // Agrega la imagen al div deseado
+                const div_tirada_jugador1 = document.getElementById("tirada_jugador2");
+                div_tirada_jugador1.appendChild(imgElement);
+            }
+
+
+
 
 
     });
@@ -50,6 +64,8 @@ stompClient.activate();
 
 
 function moveImage(imageNumber, idUsuario) {
+
+    sessionStorage.setItem('usuarioSession', JSON.stringify(idUsuario));
 
     var sourceDiv = document.getElementById("sourceDiv" + imageNumber);
     // Obtén la imagen que se hizo clic

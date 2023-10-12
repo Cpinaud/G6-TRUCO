@@ -76,7 +76,7 @@ public class ControladorPartida {
 
         //servicioPartida.jugarCarta(mensajeRecibido.getIdCarta(), mensajeRecibido.getUsuarioId());
 
-        return new MensajeEnviado(mensajeRecibido.getMessage());
+        return new MensajeEnviado(mensajeRecibido.getMessage(), mensajeRecibido.getUsuarioId());
     }
 
 
