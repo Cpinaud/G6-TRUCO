@@ -38,6 +38,7 @@ public class ControladorPartida {
         ModelAndView model = new ModelAndView();
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
         String cantidadDeJugadores = (String) request.getSession().getAttribute("cantidadDeJugadores");
+
         int cantidadJugadoresInt = Integer.parseInt(cantidadDeJugadores);
 
 //        int cantidadJugadoresInt = Integer.parseInt(cantidadDejugadores);
