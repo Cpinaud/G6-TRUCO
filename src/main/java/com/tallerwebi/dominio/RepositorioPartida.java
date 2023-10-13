@@ -15,4 +15,6 @@ public interface RepositorioPartida {
     boolean verficarSiLaRondaEstaIniciado();
 
     void iniciarRonda();
+
+    Jugada obtenerUltimaJugada();
 }

@@ -13,27 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class ControladorWebSocket {
 
+    @MessageMapping("/chat")
+    @SendTo("/topic/messages")
+    public MensajeEnviado getMessages(MensajeRecibido mensajeRecibido) throws Exception {
 
-//    @MessageMapping("/chat")
-//    @SendTo("/topic/messages")
-//    public MensajeEnviado getMessages(MensajeRecibido mensajeRecibido) throws Exception {
-//
-//
-//        return new MensajeEnviado(mensajeRecibido.getMessage());
-//    }
-
-
-//    @MessageMapping("/chat")
-//    @SendTo("/topic/messages")
-//    public String getMessages(MensajeRecibido mensajeRecibido) throws Exception {
-//
-//        MensajeEnviado mensajeEnviado = new MensajeEnviado(mensajeRecibido.getMessage());
-//        ObjectMapper mapper = new ObjectMapper();
-//        String json = mapper.writeValueAsString(mensajeEnviado);
-//
-//
-//        return json;
-//    }
+        return new MensajeEnviado(mensajeRecibido.getMessage(), mensajeRecibido.getUsuarioId());
+    }
 }
 
 

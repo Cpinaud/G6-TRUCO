@@ -32,7 +32,7 @@ public class ServicioPartida {
         return repositorioPartida.obtenerCantidadDeJugadores();
     }
 
-    public void jugarCarta(Integer carta, Long usuario) {
+    public void jugarCarta(Long usuario, Integer carta) {
         repositorioPartida.jugarCarta(usuario, carta);
     }
 
@@ -42,5 +42,9 @@ public class ServicioPartida {
 
     public void iniciarRonda() {
         repositorioPartida.iniciarRonda();
+    }
+
+    public Jugada obtenerUltimaJugada() {
+        return repositorioPartida.obtenerUltimaJugada();
     }
 }

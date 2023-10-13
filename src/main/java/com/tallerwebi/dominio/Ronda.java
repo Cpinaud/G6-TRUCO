@@ -8,7 +8,7 @@ public class Ronda {
     private List<Usuario> jugadores;
     private List<Carta> baraja; //hay que pasarle la baraja desde la base de datos;
     private List<Mano> manoDelJugador;
-    private List<Carta> cartasEnLaMesa;
+    private List<Jugada> cartasEnLaMesa;
 
 
     public Ronda(List<Equipo> equipos, List<Usuario> jugadores, List<Carta> baraja) {
@@ -38,12 +38,13 @@ public class Ronda {
     }
 
     public void jugarCarta(Usuario usuario, Carta carta){
-        if (!validarSiYaTiroCarta(usuario)) {
-            cartasEnLaMesa.add(carta);
-            if (validarSiTerminoMano()) {
-                terminarMano();
-            }
-        }
+        cartasEnLaMesa.add(new Jugada(usuario.getId(), carta));
+//        if (!validarSiYaTiroCarta(usuario)) {
+//            cartasEnLaMesa.add(new Jugada(usuario.getId(), carta.getId()));
+//            if (validarSiTerminoMano()) {
+//                terminarMano();
+//            }
+//        }
 
     }
 
@@ -59,9 +60,9 @@ public class Ronda {
     };
 
     public void terminarMano(){
-        Usuario  ganador = calcularGanador();
+        //Usuario  ganador = calcularGanador();
         manoDelJugador.clear();
-        ordenarJugadores(ganador);
+        //ordenarJugadores(ganador);
         repartir();
     }
 
@@ -80,17 +81,17 @@ public class Ronda {
         }
     }
 
-    private Usuario calcularGanador() {
-        Carta cartaMayor = cartasEnLaMesa.get(0);
-
-        for (int i = 1; i < cartasEnLaMesa.size(); i++) {
-            if(cartasEnLaMesa.get(i).getValor() > cartaMayor.getValor()){
-                cartaMayor = cartasEnLaMesa.get(i);
-            }
-        }
-
-        return jugadores.get(cartasEnLaMesa.indexOf(cartaMayor));
-    }
+//    private Usuario calcularGanador() {
+//        Carta cartaMayor = cartasEnLaMesa.get(0);
+//
+//        for (int i = 1; i < cartasEnLaMesa.size(); i++) {
+//            if(cartasEnLaMesa.get(i).getValor() > cartaMayor.getValor()){
+//                cartaMayor = cartasEnLaMesa.get(i);
+//            }
+//        }
+//
+//        return jugadores.get(cartasEnLaMesa.indexOf(cartaMayor));
+//    }
 
     public List<Carta> getBaraja() {
         return baraja;
@@ -100,11 +101,15 @@ public class Ronda {
         return manoDelJugador;
     }
 
-    public List<Carta> getCartasEnLaMesa() {
+    public List<Jugada> getCartasEnLaMesa() {
         return cartasEnLaMesa;
     }
 
     public boolean validarSiLaRondaTermino() {
         return cartasEnLaMesa.size() == jugadores.size() * 3;
+    }
+
+    public Jugada obtenerUltimaJugada() {
+        return cartasEnLaMesa.get(cartasEnLaMesa.size()-1);
     }
 }

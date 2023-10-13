@@ -1,7 +1,9 @@
 package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.*;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -30,9 +32,6 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
 
         partida.iniciarRonda(obtenerBaraja());
 
-//        if (cantidadJugadoresInt == partida.obtenerCantidadDeJugadores()) {
-//            partida.iniciarRonda(obtenerBaraja());
-//        }
     }
 
     public boolean verficarSiLaRondaEstaIniciado(){
@@ -44,21 +43,29 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
         partida.iniciarRonda(obtenerBaraja());
     }
 
+    @Override
+    public Jugada obtenerUltimaJugada() {
+        return partida.obtenerRondaActual().obtenerUltimaJugada();
+    }
+
     private List<Carta> obtenerBaraja() {
         return sessionFactory.getCurrentSession().createQuery("FROM Carta", Carta.class).list();
     }
 
     private Carta obtenerCarta(Integer id) {
-        return sessionFactory.getCurrentSession().createQuery("FROM Carta WHERE Carta.id = :id", Carta.class).uniqueResult();
-    }
+        final Session session = sessionFactory.getCurrentSession();
+        return (Carta) session.createCriteria(Carta.class)
+                .add(Restrictions.eq("id", id))
+                .uniqueResult();
+   }
 
     public List<Carta> obtenerManoDelJugador(Long usuario){
         List<Mano> manos = partida.obtenerRondaActual().getManoDelJugador();
 
         for (int i = 0; i < manos.size(); i++) {
             if (manos.get(i).getJugador().getId().equals(usuario)){
-
-                return manos.get(i).getCartasEnLaMano();
+                List<Carta> cartasEnLaMano = manos.get(i).getCartasEnLaMano();
+                return cartasEnLaMano;
             }
         }
         return null;

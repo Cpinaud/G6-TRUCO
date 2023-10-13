@@ -79,18 +79,18 @@
         </div>
         <div th:if="carta1" class="miscartas">
             <div class="miCarta image-container" id="sourceDiv1">
-                <a >
+                <a th:if="${carta1}">
                     <img th:src="@{/assets/cartas/__${carta1.imagen}__}"  class="img-fluid carta-img" th:onclick="'moveImage(1, ' + ${usuario.id} +  ',' + ${carta1.id}+ ' )'"/>
                 </a>
             </div>
             <div class="miCarta image-container" id="sourceDiv2">
-                <a >
+                <a th:if="${carta2}">
                     <img th:src="@{/assets/cartas/__${carta2.imagen}__}"  class="img-fluid carta-img" th:onclick="'moveImage(2, ' + ${usuario.id} + ',' + ${carta2.id}+ ' )'"/>
                 </a>
             </div>
             <div class="miCarta image-container" id="sourceDiv3">
 
-                <a>
+                <a th:if="${carta3}">
                     <img th:src="@{/assets/cartas/__${carta3.imagen}__}"  class="img-fluid carta-img "t th:onclick="'moveImage(3, ' + ${usuario.id} + ',' + ${carta3.id}+ ' )'"/>
                 </a>
             </div>

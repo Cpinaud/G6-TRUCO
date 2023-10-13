@@ -64,22 +64,13 @@ stompClient.activate();
 
 
 function moveImage(imageNumber, idUsuario) {
-
     sessionStorage.setItem('usuarioSession', JSON.stringify(idUsuario));
 
     var sourceDiv = document.getElementById("sourceDiv" + imageNumber);
-    // Obtén la imagen que se hizo clic
     var sourceImg = document.querySelector("#sourceDiv" + imageNumber + " img");
-
-    // Obtén el elemento de destino
     var destinationDiv = document.getElementById("destinationDiv");
-
-    // Crea una copia de la imagen
     var clonedImg = sourceImg.cloneNode(true);
-
-    // Limpia el contenido actual del elemento de destino
     destinationDiv.innerHTML = "";
-
 
     const imageUrl = sourceImg.getAttribute("src");
     stompClient.publish({
@@ -87,9 +78,102 @@ function moveImage(imageNumber, idUsuario) {
         body: JSON.stringify({message: imageUrl, usuarioId: idUsuario})
     });
 
-    // Agrega la imagen clonada al elemento de destino
     destinationDiv.appendChild(clonedImg);
-
     sourceDiv.style.display = "none";
 
+    // Datos de la jugada
+    var jugada = {
+        carta: imageNumber,
+        jugador: idUsuario
+    };
+
+    // Crear una solicitud POST utilizando AJAX
+    var xhr = new XMLHttpRequest();
+    var url = "http://localhost:8080/spring/partida"; // La URL a la que estás haciendo la solicitud POST
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+    var data = JSON.stringify(jugada);
+
+    xhr.onload = function () {
+        console.log("XHR status:", xhr.status);
+        console.log("Response:", xhr.responseText); // Verifica la respuesta exacta del servidor
+
+        if (xhr.status === 200) {
+            try {
+                var response = JSON.parse(xhr.responseText);
+                console.log("Respuesta:", response);
+                // Realiza acciones adicionales según la respuesta recibida
+            } catch (e) {
+                console.error("No se pudo analizar la respuesta como JSON. Error:" + e);
+            }
+        } else {
+            console.error("Hubo un problema al enviar la jugada. Estado de la respuesta:", xhr.status);
+            // Realiza acciones adicionales en caso de error
+        }
+    };
+
+    xhr.onerror = function () {
+        console.error("Error de red al enviar la solicitud.");
+    };
+
+    xhr.send(data);
 }
+
+// function moveImage(imageNumber, idUsuario) {
+//
+//     sessionStorage.setItem('usuarioSession', JSON.stringify(idUsuario));
+//
+//     var sourceDiv = document.getElementById("sourceDiv" + imageNumber);
+//     // Obtén la imagen que se hizo clic
+//     var sourceImg = document.querySelector("#sourceDiv" + imageNumber + " img");
+//
+//     // Obtén el elemento de destino
+//     var destinationDiv = document.getElementById("destinationDiv");
+//
+//     // Crea una copia de la imagen
+//     var clonedImg = sourceImg.cloneNode(true);
+//
+//     // Limpia el contenido actual del elemento de destino
+//     destinationDiv.innerHTML = "";
+//
+//
+//     const imageUrl = sourceImg.getAttribute("src");
+//     stompClient.publish({
+//         destination: "/app/chat",
+//         body: JSON.stringify({message: imageUrl, usuarioId: idUsuario})
+//     });
+//
+//     // Agrega la imagen clonada al elemento de destino
+//     destinationDiv.appendChild(clonedImg);
+//
+//     sourceDiv.style.display = "none";
+//
+//     //AJAX
+//     // Datos de la jugada
+//     var jugada = {
+//         carta: imageNumber,
+//         jugador: idUsuario
+//     };
+//
+// // Crear una solicitud POST utilizando AJAX
+//     var xhr = new XMLHttpRequest();
+//     var url = "/partida"; // La URL a la que estás haciendo la solicitud POST
+//     xhr.open("POST", url, true);
+//     xhr.setRequestHeader("Content-Type", "application/json");
+//     xhr.send(JSON.stringify(jugada));
+//
+//     // Función de manejo de la respuesta de la solicitud
+//     xhr.onload = function () {
+//         if (xhr.status == 200) {
+//             console.log(response);
+//             // Realizar acciones adicionales si es necesario
+//         } else {
+//             console.log("Hubo un problema al enviar la jugada");
+//             // Realizar acciones adicionales si es necesario
+//         }
+//     };
+//
+// }
+
+
