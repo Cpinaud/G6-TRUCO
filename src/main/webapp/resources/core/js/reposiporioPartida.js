@@ -1,3 +1,3 @@
 function iniciarPartida(){
-    Partida partida =
+
 }
