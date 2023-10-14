@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("servicioPartida")
@@ -20,8 +21,8 @@ public class ServicioPartida {
     }
 
 
-    public void crearPartida(Usuario usuario, int cantidadJugadoresInt){
-        repositorioPartida.crearPartida(usuario, cantidadJugadoresInt);
+    public void crearPartida(ArrayList<Long> usuariosConectados){
+        repositorioPartida.crearPartida(usuariosConectados);
     };
 
     public List<Carta> obtenerManoDelJugador(Long usuario){

@@ -1,11 +1,12 @@
 package com.tallerwebi.dominio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface RepositorioPartida {
 
 
-    void crearPartida(Usuario usuario, int cantidadJugadoresInt);
+    void crearPartida(ArrayList<Long> usuariosConectados);
     List<Carta> obtenerManoDelJugador(Long usuario);
 
     Integer obtenerCantidadDeJugadores();

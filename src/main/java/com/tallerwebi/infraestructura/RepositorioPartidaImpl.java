@@ -7,6 +7,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository("repositorioPartida")
@@ -25,14 +26,22 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
 
 
     @Override
-    public void crearPartida(Usuario usuario, int cantidadJugadoresInt) {
+    public void crearPartida(ArrayList<Long> usuariosConectados) {
 
-        if (partida == null) partida = new Partida(usuario, cantidadJugadoresInt);
-        else if(!partida.buscarUsuario(usuario)) partida.agregarEquipo(usuario);
+        Usuario jugador1 = buscarJugador(usuariosConectados.get(0));
+        Usuario jugador2 = buscarJugador(usuariosConectados.get(1));
 
-        partida.iniciarRonda(obtenerBaraja());
+        partida = new Partida();
+        partida.agregarEquipo(jugador1, jugador2);
+
+        iniciarRonda();
 
     }
+
+    private Usuario buscarJugador(Long aLong) {
+        return (Usuario) sessionFactory.getCurrentSession().createCriteria(Usuario.class)
+                .add(Restrictions.eq("id", aLong))
+                .uniqueResult();}
 
     public boolean verficarSiLaRondaEstaIniciado(){
         return partida.verficarSiLaRondaEstaIniciado();

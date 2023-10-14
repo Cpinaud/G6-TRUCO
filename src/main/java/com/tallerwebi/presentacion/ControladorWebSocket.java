@@ -20,11 +20,11 @@ public ControladorWebSocket(WebSocketRegistroDeUsuarios registroUsuarios){
     @SendTo("/topic/messages")
     public MensajeEnviado getMessages(MensajeRecibido mensajeRecibido,  SimpMessageHeaderAccessor headerAccessor) throws Exception {
 
-        String sessionId = headerAccessor.getSessionId();
-        Long usuarioId = mensajeRecibido.getUsuarioId();
-
-        // Registra al usuario con su sesión
-        registroUsuarios.registerUser(sessionId, usuarioId);
+//        String sessionId = headerAccessor.getSessionId();
+//        Long usuarioId = mensajeRecibido.getUsuarioId();
+//
+//        // Registra al usuario con su sesión
+//        registroUsuarios.registerUser(sessionId, usuarioId);
 
         //retorna el mensaje con el ID del usuario
         return new MensajeEnviado(mensajeRecibido.getMessage(), mensajeRecibido.getUsuarioId());

@@ -17,7 +17,7 @@
 
         <form action="#" th:action="@{/partida}"  method="POST"  class="w-75">
 
-            <button id="btn-login" class="btn" Type="Submit" onclick="iniciarPartida()">Sala completa</button>
+            <button id="btn-login" class="btn" Type="Submit">Sala completa</button>
 
 
 
@@ -25,6 +25,7 @@
         </form>
     </div>
 </div>
-<script th:src="@{/js/repositorioPartida.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+<script th:src="@{/js/script.js}"></script>
 </body>
 </html>

@@ -19,4 +19,10 @@ public class WebSocketRegistroDeUsuarios {
     public Long getUserBySessionId(String sessionId) {
         return userSessionMap.get(sessionId);
     }
+
+    public Map<String, Long> obtenerUsuariosConectados() {
+        return userSessionMap;
+    }
+
+    public Integer obtenerCantidadDeUsuarios() {return userSessionMap.size();}
 }
