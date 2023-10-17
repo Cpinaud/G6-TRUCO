@@ -9,18 +9,18 @@ import java.util.List;
 @Service("servicioSala")
 @Transactional
 public class ServicioSalaImpl implements ServicioSala {
-        private RepositorioSala serviciosalaDao;
+    private RepositorioSala serviciosalaDao;
 
 
     @Autowired
     public ServicioSalaImpl(RepositorioSala serviciosalaDao){
-            this.serviciosalaDao = serviciosalaDao;
-        }
+        this.serviciosalaDao = serviciosalaDao;
+    }
 
 
     @Override
     public boolean crearsala(Sala sala) {
-        if(!Salaexistente(sala)){
+        if(Salaexistente(sala)){
             serviciosalaDao.guardarSala(sala);
             return true;
         }
@@ -43,5 +43,3 @@ public class ServicioSalaImpl implements ServicioSala {
 
 
 }
-
-

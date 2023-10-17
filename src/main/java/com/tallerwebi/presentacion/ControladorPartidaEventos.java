@@ -15,21 +15,21 @@ public class ControladorPartidaEventos {
 
     private DatosEvento datosEvento;
     private ServicioPartida servicioPartida;
-/*
-    @Autowired
-    public ControladorPartidaEventos(ServicioPartida servicioPartida) {
-        this.servicioPartida = servicioPartida;
+    /*
+        @Autowired
+        public ControladorPartidaEventos(ServicioPartida servicioPartida) {
+            this.servicioPartida = servicioPartida;
 
-    }*/
-@RequestMapping(path = "/truco", method = RequestMethod.POST)
-public ModelAndView eventotruco() {
-    ModelAndView model = new ModelAndView();
-    EventoPartida eventoPartida = new EventoPartida("truco",2);
-    datosEvento = new DatosEvento(eventoPartida);
-    model.addObject("evento", "Le canto Truco");
-    model.setViewName("partida");
-    return model;
-}
+        }*/
+    @RequestMapping(path = "/truco", method = RequestMethod.POST)
+    public ModelAndView eventotruco() {
+        ModelAndView model = new ModelAndView();
+        EventoPartida eventoPartida = new EventoPartida("truco",2);
+        datosEvento = new DatosEvento(eventoPartida);
+        model.addObject("evento", "Le canto Truco");
+        model.setViewName("partida");
+        return model;
+    }
     @RequestMapping(path = "/retruco", method = RequestMethod.POST)
     public ModelAndView eventoretruco() {
         ModelAndView model = new ModelAndView();
