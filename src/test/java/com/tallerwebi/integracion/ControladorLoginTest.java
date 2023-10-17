@@ -72,4 +72,18 @@ public class ControladorLoginTest {
 		assertThat(modelAndView.getModel().get("datosLogin").toString(),  containsString("com.tallerwebi.presentacion.DatosLogin"));
 
 	}
+
+	@Test
+	public void debeRetornarLaPaginaPerfilCuandoSeNavegaAlPerfil() throws Exception {
+
+		MvcResult result = this.mockMvc.perform(get("/perfil"))
+				.andExpect(status().isOk())
+				.andReturn();
+
+		ModelAndView modelAndView = result.getModelAndView();
+		assert modelAndView != null;
+		assertThat(modelAndView.getViewName(), equalToIgnoringCase("login"));
+		assertThat(modelAndView.getModel().get("datosLogin").toString(),  containsString("com.tallerwebi.presentacion.DatosLogin"));
+
+	}
 }
