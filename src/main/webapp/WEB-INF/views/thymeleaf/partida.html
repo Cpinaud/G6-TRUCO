@@ -60,16 +60,61 @@
         </div>
 
     </div>
-    <div class="section_eventos_botones">
-        <button class="boton_eventos option-button">TRUCO</button>
-        <button class="boton_eventos option-button">RETRUCO</button>
-        <button class="boton_eventos option-button">VALE CUATRO</button>
-        <button class="boton_eventos option-button">ENVIDO</button>
-        <button class="boton_eventos option-button">REAL ENVIDO</button>
-        <button class="boton_eventos option-button">FALTA ENVIDO</button>
-        <button class="boton_eventos option-button">IRSE AL MAZO</button>
-        <button class="boton_eventos option-button">QUIERO</button>
-        <button class="boton_eventos option-button">NO QUIERO</button>
+    <div class="options-menu">
+        <div class="round-label">Ronda 1</div>
+        <div class="option-container" th:if="${evento!= 'Le canto Retruco'} and ${evento!= 'Le canto Vale Cuatro'}" >
+            <form action="#" th:action="@{/truco}"  method="POST"  class="w-75" th:object="${evento}">
+                <button class="btn btn-primary" type="submit" value='truco' name="truco" >TRUCO</button>
+            </form>
+        </div>
+        <div class="option-container" th:if="${evento== 'Le canto Truco'} and ${evento!= 'Le canto Vale Cuatro'}">
+            <form action="#" th:action="@{/retruco}"  method="POST"  class="w-75" th:object="${evento}">
+                <button class="btn btn-primary" Type="Submit" value="retruco"  name="retruco" >RETRUCO</button>
+            </form>
+        </div>
+        <div class="option-container" th:if="${evento== 'Le canto Retruco'}">
+            <form action="#" th:action="@{/vale_cuatro}"  method="POST"  class="w-75" th:object="${evento}">
+                <button class="btn btn-primary" Type="Submit" value="vale_cuatro"  name="vale_cuatro" >VALE CUATRO</button>
+            </form>
+        </div>
+        <div class="option-container" th:if="${evento!= 'Le canto Real Envido'} and ${evento!= 'Le canto Falta Envido'}">
+            <form action="#" th:action="@{/envido}"  method="POST"  class="w-75" th:object="${evento}">
+                <button class="btn btn-primary" Type="Submit" value="envido" name="envido" >ENVIDO</button>
+            </form>
+        </div>
+        <div class="option-container" th:if="${evento== 'Le canto Envido'} and ${evento!= 'Le canto Falta Envido'}">
+            <form action="#" th:action="@{/real_envido}"  method="POST"  class="w-75" th:object="${evento}">
+                <button class="btn btn-primary" Type="Submit" value="real_envido" name="real_envido" >REAL ENVIDO</button>
+            </form>
+        </div>
+        <div class="option-container" th:if="${evento== 'Le canto Real Envido'}">
+            <form action="#" th:action="@{/falta_envido}"  method="POST"  class="w-75" th:object="${evento}">
+                <button class="btn btn-primary" Type="Submit" value="falta_envido" name="falta_envido" >FALTA ENVIDO</button>
+            </form>
+        </div>
+
+        <div th:if="${evento != null   }" class="option-container" >
+            <h4  class=" rounded-pill border border-3 border border-primary text-primary" th:color="white" th:text="${evento}"></h4>
+
+            <div th:if=" ${evento!= 'Quiero'} and ${evento!= 'No Quiero'} and ${evento!= 'Me voy al maso'}" class="alert alert-danger">
+                <div class="option-container">
+                    <form action="#" th:action="@{/quiero}"  method="POST"  class="w-75" th:object="${evento}">
+                        <button class="btn btn-success" Type="Submit"  value="quiero" name="quiero" >QUIERO</button>
+                    </form>
+                </div>
+                <div class="option-container">
+                    <form action="#" th:action="@{/no_quiero}"  method="POST"  class="w-75" th:object="${evento}">
+                        <button class="btn btn-danger" Type="Submit" value="no_quiero"  name="no_quiero" >NO QUIERO</button>
+                    </form>
+                </div>
+                <div class="option-container">
+                    <form action="#" th:action="@{/al_maso}"  method="POST"  class="w-75" th:object="${evento}">
+                        <button class="btn btn-warning" Type="Submit" value="al_maso" name="al_maso" >AL MAZO</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
     </div>
 </section>
 

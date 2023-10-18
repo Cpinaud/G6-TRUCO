@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface RepositorioSala {
 
-    Sala buscarsala(Long id);
+    Sala buscarsala(String nombre);
 
-    boolean Salaexistente(Long id);
+    boolean Salaexistente(String nombre);
 
     boolean guardarSala(Sala sala);
 
