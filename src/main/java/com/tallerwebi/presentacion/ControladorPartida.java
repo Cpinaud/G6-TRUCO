@@ -35,16 +35,28 @@ public class ControladorPartida {
 //        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
 //        servicioPartida.crearPartida(usuario, 2);
 
-        model.setViewName("salas");
+        model.setViewName("sala_espera");
         return model;
     }
+    @RequestMapping("/sala_espera")
+    public ModelAndView esperarSala2(@ModelAttribute("cantidadDejugadores") String cantidadJugadores, HttpServletRequest request) {
+        ModelAndView model = new ModelAndView();
+        request.getSession().setAttribute("cantidadDeJugadores", cantidadJugadores);
+        model.addObject("cantidadJugadoresInt", cantidadJugadores);
+
+//        int cantidadJugadoresInt = Integer.parseInt(cantidadJugadores);
+//        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+//        servicioPartida.crearPartida(usuario, 2);
+
+        model.setViewName("sala_espera");
+        return model;
+    }
+
     @RequestMapping("/partida")
     public ModelAndView iniciarPartida( HttpServletRequest request){
         ModelAndView model = new ModelAndView();
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
-        String cantidadDeJugadores = (String) request.getSession().getAttribute("cantidadDeJugadores");
 
-        int cantidadJugadoresInt = Integer.parseInt(cantidadDeJugadores);
         servicioPartida.crearPartida(usuario, 2);
 
 
