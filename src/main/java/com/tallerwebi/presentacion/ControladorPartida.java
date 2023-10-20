@@ -39,6 +39,7 @@ public class ControladorPartida {
         // Registra al usuario con su sesión
         registroUsuarios.registerUser(usuario.getUsername(), usuario.getId());
 
+
         ArrayList<Long> usuariosConectados = new ArrayList<>(registroUsuarios.obtenerUsuariosConectados().values());
 
         if(registroUsuarios.obtenerCantidadDeUsuarios() == 2){
@@ -53,15 +54,30 @@ public class ControladorPartida {
     }
 
     @RequestMapping("/sala")
-    public ModelAndView esperarSala2(@ModelAttribute("cantidadDejugadores") String cantidadJugadores, HttpServletRequest request) {
+    public ModelAndView esperarSala3(@ModelAttribute("cantidadDejugadores") String cantidadJugadores, HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
 
 
         model.addObject("usuariosEnLaSala", registroUsuarios.obtenerCantidadDeUsuarios());
         model.setViewName("salas");
+
+        model.setViewName("sala_espera");
+
         return model;
     }
+    @RequestMapping("/sala_espera")
+    public ModelAndView esperarSala2(@ModelAttribute("cantidadDejugadores") String cantidadJugadores, HttpServletRequest request) {
+        ModelAndView model = new ModelAndView();
+        request.getSession().setAttribute("cantidadDeJugadores", cantidadJugadores);
+        model.addObject("cantidadJugadoresInt", cantidadJugadores);
 
+//        int cantidadJugadoresInt = Integer.parseInt(cantidadJugadores);
+//        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+//        servicioPartida.crearPartida(usuario, 2);
+
+        model.setViewName("sala_espera");
+        return model;
+    }
 
     @RequestMapping("/partida")
     public ModelAndView iniciarPartida( HttpServletRequest request){
@@ -86,7 +102,7 @@ public class ControladorPartida {
             return model;
         }
         
-        model.setViewName("sala");
+        model.setViewName("sala_espera");
         return model;
     }
     @RequestMapping(value = "/partida", consumes = "application/json", method = RequestMethod.POST)
