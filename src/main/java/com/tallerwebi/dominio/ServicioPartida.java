@@ -48,4 +48,8 @@ public class ServicioPartida {
     public Jugada obtenerUltimaJugada() {
         return repositorioPartida.obtenerUltimaJugada();
     }
+
+    public List<Usuario>  obtenerJugadoresEnLaPartida() {
+        return repositorioPartida.obtenerJugadoresEnLaPartida();
+    }
 }

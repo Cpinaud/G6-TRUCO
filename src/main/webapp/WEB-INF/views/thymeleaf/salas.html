@@ -13,19 +13,18 @@
     <div class="formulario">
         <h2>Esperando al resto de jugadores</h2>
 
-        <p th:text="${cantidadJugadoresInt}"></p>
+        <p th:text="${usuariosEnLaSala}"></p>
+        <p>Uusuario actual: <span th:text="${usuarioJava.username}"></span></p>
 
-        <form action="#" th:action="@{/partida}"  method="POST"  class="w-75">
+        <form th:if="${iniciarPartida}" action="#" th:action="@{/partida}"  method="POST"  class="w-75">
 
-            <button id="btn-login" class="btn" Type="Submit">Sala completa</button>
-
-
-
+            <button id="btn-login" class="btn" Type="Submit" onclick="iniciarPartida()">Sala completa</button>
 
         </form>
     </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
-<script th:src="@{/js/script.js}"></script>
+<script th:src="@{/js/conexionWebSocket.js}"></script>
 </body>
 </html>

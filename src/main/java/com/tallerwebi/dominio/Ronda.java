@@ -17,21 +17,24 @@ public class Ronda {
         this.baraja = baraja;
         manoDelJugador = new ArrayList<>();
         cartasEnLaMesa = new ArrayList<>();
-        repartir();
+        //repartir();
     }
 
 
-    private void repartir() {
+    public void repartir() {
+
+        List<Carta> cartas = new ArrayList<>();
+        cartas.addAll(baraja);
 
         for (int i = 0; i < jugadores.size(); i++) {
             List<Carta> cartasAleatorias = new ArrayList<>();
 
             for (int j = 0; j < 3; j++) {
-                int indiceRandom = (int) (Math.random() * baraja.size());
-                Carta cartaAleatoria = baraja.get(indiceRandom);
+                int indiceRandom = (int) (Math.random() * cartas.size());
+                Carta cartaAleatoria = cartas.get(indiceRandom);
 
                 cartasAleatorias.add(cartaAleatoria);
-                baraja.remove(cartaAleatoria);
+                cartas.remove(cartaAleatoria);
             }
             manoDelJugador.add(new Mano (jugadores.get(i), cartasAleatorias));
         }
@@ -39,12 +42,6 @@ public class Ronda {
 
     public void jugarCarta(Usuario usuario, Carta carta){
         cartasEnLaMesa.add(new Jugada(usuario.getId(), carta));
-//        if (!validarSiYaTiroCarta(usuario)) {
-//            cartasEnLaMesa.add(new Jugada(usuario.getId(), carta.getId()));
-//            if (validarSiTerminoMano()) {
-//                terminarMano();
-//            }
-//        }
 
     }
 
@@ -56,14 +53,15 @@ public class Ronda {
     }
 
     private boolean validarSiTerminoMano() {
-        return manoDelJugador.size() == jugadores.size();
+        return cartasEnLaMesa.size() == jugadores.size() && !manoDelJugador.isEmpty();
     };
 
-    public void terminarMano(){
-        //Usuario  ganador = calcularGanador();
-        manoDelJugador.clear();
+    public Jugada terminarMano(){
+        Jugada jugadaGanadora = calcularGanador();
+        //manoDelJugador.clear();
         //ordenarJugadores(ganador);
-        repartir();
+        jugadaGanadora.setJugadaGanadora(true);
+        return jugadaGanadora;
     }
 
     private void ordenarJugadores(Usuario ganador) {
@@ -81,23 +79,23 @@ public class Ronda {
         }
     }
 
-//    private Usuario calcularGanador() {
-//        Carta cartaMayor = cartasEnLaMesa.get(0);
-//
-//        for (int i = 1; i < cartasEnLaMesa.size(); i++) {
-//            if(cartasEnLaMesa.get(i).getValor() > cartaMayor.getValor()){
-//                cartaMayor = cartasEnLaMesa.get(i);
-//            }
-//        }
-//
-//        return jugadores.get(cartasEnLaMesa.indexOf(cartaMayor));
-//    }
+    private Jugada calcularGanador() {
+        Jugada jugadaGanadora = cartasEnLaMesa.get(0);
+
+        for (int i = 1; i < cartasEnLaMesa.size(); i++) {
+            if(cartasEnLaMesa.get(i).getCarta().getValor() > jugadaGanadora.getCarta().getValor()){
+                jugadaGanadora = cartasEnLaMesa.get(i);
+            }
+        }
+
+        return jugadaGanadora;
+    }
 
     public List<Carta> getBaraja() {
         return baraja;
     }
 
-    public List<Mano> getManoDelJugador() {
+    public List<Mano> getManosDeLosJugadores() {
         return manoDelJugador;
     }
 
@@ -110,6 +108,11 @@ public class Ronda {
     }
 
     public Jugada obtenerUltimaJugada() {
+        if (validarSiTerminoMano()) {
+            manoDelJugador.clear();
+           return terminarMano();
+
+        }
         return cartasEnLaMesa.get(cartasEnLaMesa.size()-1);
     }
 }

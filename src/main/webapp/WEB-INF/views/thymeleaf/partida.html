@@ -15,12 +15,16 @@
 </head>
 <body>
 <section class="section_informacion">
+    <div class="equipos" id="equipo3">
+        <span class="span_equipos" th:text="${usuarioJava.username}"></span>
+        <p class="puntos">usuario actual</p>
+    </div>
     <div class="equipos" id="equipo1">
-        <span class="span_equipos">Equipo 1</span>
+        <span class="span_equipos" th:text="${equipo1}"></span>
         <p class="puntos">10</p>
     </div>
     <div class="equipos" id="equipo2">
-        <span class="span_equipos">Equipo 2</span>
+        <span class="span_equipos" th:text="${equipo2}"></span>
         <p class="puntos">12</p>
     </div>
 </section>
@@ -45,6 +49,9 @@
     </div>
 </section>
 
+<div class="popup"  id="popup2" style="display: none" >
+
+</div>
 
 
 

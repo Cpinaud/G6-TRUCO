@@ -1,7 +1,9 @@
 package com.tallerwebi.presentacion;
 
+import com.tallerwebi.dominio.Usuario;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 @Component
@@ -25,4 +27,7 @@ public class WebSocketRegistroDeUsuarios {
     }
 
     public Integer obtenerCantidadDeUsuarios() {return userSessionMap.size();}
+
+
+
 }

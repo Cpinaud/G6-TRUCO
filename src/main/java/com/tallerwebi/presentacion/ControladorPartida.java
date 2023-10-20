@@ -39,6 +39,25 @@ public class ControladorPartida {
         // Registra al usuario con su sesión
         registroUsuarios.registerUser(usuario.getUsername(), usuario.getId());
 
+        ArrayList<Long> usuariosConectados = new ArrayList<>(registroUsuarios.obtenerUsuariosConectados().values());
+
+        if(registroUsuarios.obtenerCantidadDeUsuarios() == 2){
+            servicioPartida.crearPartida(usuariosConectados);
+            model.addObject("iniciarPartida", true);
+        }
+
+        model.addObject("usuarioJava", request.getSession().getAttribute("usuario"));
+        model.addObject("usuariosEnLaSala", registroUsuarios.obtenerCantidadDeUsuarios());
+        model.setViewName("salas");
+        return model;
+    }
+
+    @RequestMapping("/sala")
+    public ModelAndView esperarSala2(@ModelAttribute("cantidadDejugadores") String cantidadJugadores, HttpServletRequest request) {
+        ModelAndView model = new ModelAndView();
+
+
+        model.addObject("usuariosEnLaSala", registroUsuarios.obtenerCantidadDeUsuarios());
         model.setViewName("salas");
         return model;
     }
@@ -51,27 +70,30 @@ public class ControladorPartida {
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
 
         ArrayList<Long> usuariosConectados = new ArrayList<>(registroUsuarios.obtenerUsuariosConectados().values());
+        ArrayList<Usuario> jugadoresEnLaPartida = new ArrayList<>(servicioPartida.obtenerJugadoresEnLaPartida());
+
 
         if (registroUsuarios.obtenerCantidadDeUsuarios() == 2){
-            servicioPartida.crearPartida(usuariosConectados);
 
             model.addObject("carta1", servicioPartida.obtenerManoDelJugador(usuario.getId()).get(0));
             model.addObject("carta2", servicioPartida.obtenerManoDelJugador(usuario.getId()).get(1));
             model.addObject("carta3", servicioPartida.obtenerManoDelJugador(usuario.getId()).get(2));
             model.addObject("usuarioJava", usuario);
 
+            model.addObject("equipo1", jugadoresEnLaPartida.get(0).getUsername());
+            model.addObject("equipo2", jugadoresEnLaPartida.get(1).getUsername());
             model.setViewName("partida");
             return model;
         }
         
-
+        model.setViewName("sala");
         return model;
     }
     @RequestMapping(value = "/partida", consumes = "application/json", method = RequestMethod.POST)
     @ResponseBody
     public Jugada manejarJugada(@RequestBody DatosJugada jugada) {
-        servicioPartida.jugarCarta(jugada.getJugador(), jugada.getCarta());
 
+        servicioPartida.jugarCarta(jugada.getJugador(), jugada.getCarta());
 
         return servicioPartida.obtenerUltimaJugada();
     }
