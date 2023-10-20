@@ -4,7 +4,7 @@ import com.tallerwebi.presentacion.ControladorSala;
 import org.hsqldb.lib.HsqlArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import com.tallerwebi.dominio.ServicioSala;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -34,35 +35,35 @@ public class ServicioSalaTest {
         repositoriomock = mock(RepositorioSala.class);
         servicioSala = new ServicioSalaImpl(repositoriomock);
         servicioSalamock = mock(ServicioSala.class);
+        sala = new Sala("pepe",2);
 
     }
 
     @Test
     public void QueObtengaunaSalaPorID(){
 
-        Sala sala = new Sala(1L,2,1);
-        when(servicioSalamock.obtenersala(1L)).thenReturn(sala);
+        when(servicioSalamock.obtenersala(anyString())).thenReturn(sala);
 
 
-        assertEquals(1L,servicioSalamock.obtenersala(1L).getId_sala());
+        assertEquals(sala.getNombre_sala(),servicioSalamock.obtenersala(sala.getNombre_sala()).getNombre_sala());
 
     }
     @Test
     public void QueCreeunaSalaRecibiendounaSala(){
+        sala.setNombre_sala("pepe");
+        when(servicioSalamock.obtenersala(anyString())).thenReturn(sala);
 
-        Sala sala = new Sala(1L,2,1);
-        when(servicioSalamock.obtenersala(1L)).thenReturn(sala);
         servicioSalamock.crearsala(sala);
 
-        assertEquals(sala.getId_sala(),servicioSalamock.obtenersala(1L).getId_sala());
+        assertEquals(sala.getNombre_sala(),servicioSalamock.obtenersala(sala.getNombre_sala()).getNombre_sala());
 
     }
 
     @Test
     public void QueObtengaunaListadeSalas(){
 
-        Sala sala = new Sala(1L,2,1);
-        Sala sala2 = new Sala(2L,2,1);
+
+        Sala sala2 = new Sala(1);
         ArrayList<Sala> salas=  new ArrayList<Sala>();
         salas.add(sala);
         salas.add(sala2);

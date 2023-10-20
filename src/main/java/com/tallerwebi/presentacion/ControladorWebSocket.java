@@ -1,39 +1,44 @@
 package com.tallerwebi.presentacion;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tallerwebi.dominio.MensajeEnviado;
 import com.tallerwebi.dominio.MensajeRecibido;
-import com.tallerwebi.dominio.Usuario;
+import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
-
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 @Controller
 public class ControladorWebSocket {
+private final WebSocketRegistroDeUsuarios registroUsuarios;
 
+public ControladorWebSocket(WebSocketRegistroDeUsuarios registroUsuarios){
+    this.registroUsuarios = registroUsuarios;
+}
+    @MessageMapping("/chat")
+    @SendTo("/topic/messages")
+    public MensajeEnviado getMessages(MensajeRecibido mensajeRecibido,  SimpMessageHeaderAccessor headerAccessor) throws Exception {
 
-//    @MessageMapping("/chat")
-//    @SendTo("/topic/messages")
-//    public MensajeEnviado getMessages(MensajeRecibido mensajeRecibido) throws Exception {
-//
-//
-//        return new MensajeEnviado(mensajeRecibido.getMessage());
-//    }
+        return new MensajeEnviado(mensajeRecibido.getMessage(), mensajeRecibido.getUsuarioId());
+    }
 
+    @MessageExceptionHandler
+    public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
+        String sessionId = event.getSessionId();
 
-//    @MessageMapping("/chat")
-//    @SendTo("/topic/messages")
-//    public String getMessages(MensajeRecibido mensajeRecibido) throws Exception {
-//
-//        MensajeEnviado mensajeEnviado = new MensajeEnviado(mensajeRecibido.getMessage());
-//        ObjectMapper mapper = new ObjectMapper();
-//        String json = mapper.writeValueAsString(mensajeEnviado);
-//
-//
-//        return json;
-//    }
+        // Elimina al usuario cuando se desconecta
+        Long usuarioId = registroUsuarios.getUserBySessionId(sessionId);
+        if (usuarioId != null) {
+            registroUsuarios.removeUser(sessionId);
+        }
+    }
+
+    @MessageMapping("/inicarPartidaWebSocket")
+    @SendTo("/topic/messages")
+    public Boolean inicarPartidaWebSocket(Boolean respuesta) throws Exception {
+    return respuesta;
+    }
 }
 
 

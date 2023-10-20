@@ -8,7 +8,6 @@ public class Equipo {
 
     private int puntos;
 
-    private List<Equipo> equipos;
     private List<Usuario> jugadores;
 
     public Equipo(int id, Usuario jugador) {

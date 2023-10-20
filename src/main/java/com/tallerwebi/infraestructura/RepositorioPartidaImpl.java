@@ -1,10 +1,13 @@
 package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.*;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository("repositorioPartida")
@@ -23,17 +26,22 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
 
 
     @Override
-    public void crearPartida(Usuario usuario, int cantidadJugadoresInt) {
+    public void crearPartida(ArrayList<Long> usuariosConectados) {
 
-        if (partida == null) partida = new Partida(usuario, cantidadJugadoresInt);
-        else if(!partida.buscarUsuario(usuario)) partida.agregarEquipo(usuario);
+        Usuario jugador1 = buscarJugador(usuariosConectados.get(0));
+        Usuario jugador2 = buscarJugador(usuariosConectados.get(1));
 
-        partida.iniciarRonda(obtenerBaraja());
+        partida = new Partida();
+        partida.agregarEquipo(jugador1, jugador2);
 
-//        if (cantidadJugadoresInt == partida.obtenerCantidadDeJugadores()) {
-//            partida.iniciarRonda(obtenerBaraja());
-//        }
+        iniciarRonda();
+
     }
+
+    public Usuario buscarJugador(Long aLong) {
+        return (Usuario) sessionFactory.getCurrentSession().createCriteria(Usuario.class)
+                .add(Restrictions.eq("id", aLong))
+                .uniqueResult();}
 
     public boolean verficarSiLaRondaEstaIniciado(){
         return partida.verficarSiLaRondaEstaIniciado();
@@ -44,21 +52,38 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
         partida.iniciarRonda(obtenerBaraja());
     }
 
-    private List<Carta> obtenerBaraja() {
+    @Override
+    public Jugada obtenerUltimaJugada() {
+        return partida.obtenerRondaActual().obtenerUltimaJugada();
+    }
+
+    @Override
+    public List<Usuario> obtenerJugadoresEnLaPartida() {
+        return partida.obtenerJugadoresEnLaPartida();
+    }
+
+    public List<Carta> obtenerBaraja() {
         return sessionFactory.getCurrentSession().createQuery("FROM Carta", Carta.class).list();
     }
 
-    private Carta obtenerCarta(Integer id) {
-        return sessionFactory.getCurrentSession().createQuery("FROM Carta WHERE Carta.id = :id", Carta.class).uniqueResult();
+    public List<Usuario> obtenerUsuario() {
+        return sessionFactory.getCurrentSession().createQuery("FROM Usuario", Usuario.class).list();
     }
 
+    public Carta obtenerCarta(Integer id) {
+        final Session session = sessionFactory.getCurrentSession();
+        return (Carta) session.createCriteria(Carta.class)
+                .add(Restrictions.eq("id", id))
+                .uniqueResult();
+   }
+
     public List<Carta> obtenerManoDelJugador(Long usuario){
-        List<Mano> manos = partida.obtenerRondaActual().getManoDelJugador();
+        List<Mano> manos = partida.obtenerRondaActual().getManosDeLosJugadores();
 
         for (int i = 0; i < manos.size(); i++) {
             if (manos.get(i).getJugador().getId().equals(usuario)){
-
-                return manos.get(i).getCartasEnLaMano();
+                List<Carta> cartasEnLaMano = manos.get(i).getCartasEnLaMano();
+                return cartasEnLaMano;
             }
         }
         return null;

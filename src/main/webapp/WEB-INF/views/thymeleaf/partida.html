@@ -11,147 +11,120 @@
 
     <!-- custom style -->
     <link rel="stylesheet" href="/css/partida.css" th:href="@{/css/partida.css}"/>
-    <!--<link rel="stylesheet" type="text/css" href="../../../resources/core/css/partida.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="../../../resources/core/css/partida2.css">-->
 </head>
 <body>
-<button id="mostrarPopup" class="btn btn-lg btn-danger abandonar">Abandonar Partida</button>
-<div id="popup" class="popup">
-    <div class="popup-contenido">
-        <span id="cerrarPopup" class="cerrar-popup">&times;</span>
-        <h2>Confirma que desea abandonar la partida?</h2>
-        <a href="index.html" id="abandonar">OK</a>
+<section class="section_informacion">
+    <div class="equipos" id="equipo3">
+        <span class="span_equipos" th:text="${usuarioJava.username}"></span>
+        <p class="puntos">usuario actual</p>
     </div>
+    <div class="equipos" id="equipo1">
+        <span class="span_equipos" th:text="${equipo1}"></span>
+        <p class="puntos">10</p>
+    </div>
+    <div class="equipos" id="equipo2">
+        <span class="span_equipos" th:text="${equipo2}"></span>
+        <p class="puntos">12</p>
+    </div>
+</section>
+
+
+<section class="section_principal">
+
+    <div class="mano_oponente" id="mano_oponente">
+        <img th:src="@{/assets/cartas/carta_reverso.png}" alt="">
+        <img th:src="@{/assets/cartas/carta_reverso.png}" alt="">
+        <img th:src="@{/assets/cartas/carta_reverso.png}" alt="">
+    </div>
+
+    <img class="img_jugadas" id="jugada_oponente"  alt="">
+
+    <img class="img_jugadas" id="jugada_mia"  alt="">
+
+    <div class="mano_mia" id="mano_mia">
+        <img th:if="${carta1}" id="carta1" th:src="@{/assets/cartas/__${carta1.imagen}__}"  th:onclick="'moveImage(this.id,this.src, ' + ${usuarioJava.id} +  ',' + ${carta1.id}+ ' )'" class="misCartas"/>
+        <img th:if="${carta2}" id="carta2" th:src="@{/assets/cartas/__${carta2.imagen}__}"  th:onclick="'moveImage(this.id,this.src, ' + ${usuarioJava.id} +  ',' + ${carta2.id}+ ' )'" class="misCartas"/>
+        <img th:if="${carta3}" id="carta3" th:src="@{/assets/cartas/__${carta3.imagen}__}"  th:onclick="'moveImage(this.id,this.src, ' + ${usuarioJava.id} +  ',' + ${carta3.id}+ ' )'" class="misCartas"/>
+    </div>
+</section>
+
+<div class="popup"  id="popup2" style="display: none" >
+
 </div>
 
-<div class="contenedor-principal">
-    <div class="capa-inferior">
-        <div th:if="${cantidadJugadoresInt>=4}" class="player player1">
-            <div class="carta"><img th:src="@{/assets/dorso_carta.png}"  class="img-fluid" /></div>
-            <div class="carta"><img th:src="@{/assets/dorso_carta.png}"  class="img-fluid" /></div>
-            <div class="carta"><img th:src="@{/assets/dorso_carta.png}"  class="img-fluid" /></div>
-        </div>
-        <div th:if="${cantidadJugadoresInt>=4}" class="player player2">
-            <div class="carta"><img th:src="@{/assets/dorso_carta.png}"  class="img-fluid" /></div>
-            <div class="carta"><img th:src="@{/assets/dorso_carta.png}"  class="img-fluid" /></div>
-            <div class="carta"><img th:src="@{/assets/dorso_carta.png}"  class="img-fluid" /></div>
-        </div>
-        <div  th:if="${cantidadJugadoresInt==6}" class="player player3">
-            <div class="carta"><img th:src="@{/assets/dorso_carta.png}"  class="img-fluid" /></div>
-            <div class="carta"><img th:src="@{/assets/dorso_carta.png}"  class="img-fluid" /></div>
-            <div class="carta"><img th:src="@{/assets/dorso_carta.png}"  class="img-fluid" /></div>
-        </div>
-        <div th:if="${cantidadJugadoresInt==6}" class="player player4">
-            <div class="carta"><img th:src="@{/assets/dorso_carta.png}"  class="img-fluid" /></div>
-            <div class="carta"><img th:src="@{/assets/dorso_carta.png}"  class="img-fluid" /></div>
-            <div class="carta"><img th:src="@{/assets/dorso_carta.png}"  class="img-fluid" /></div>
-        </div>
-        <div  class="player5 player">
-            <div class="carta"><img th:src="@{/assets/dorso_carta.png}"  class="img-fluid" /></div>
-            <div class="carta"><img th:src="@{/assets/dorso_carta.png}"  class="img-fluid" /></div>
-            <div class="carta"><img th:src="@{/assets/dorso_carta.png}"  class="img-fluid" /></div>
-        </div>
-    </div>
-    <div class="capa-superior">
-        <div class="scoreround">
-            <div class="score-container">
-                <div class="score-label">PUNTUACION</div>
-                <div class="team container-fluid">
-                    <img src="https://img.freepik.com/psd-gratis/ilustracion-3d-persona-gafas-sol-cabello-verde_23-2149436201.jpg?w=740&t=st=1694135110~exp=1694135710~hmac=d3b9cb04b6ba9c8a43ac267beac353c542ac84f1813f2044b3862961af21ff63" class="img-fluid  rounded" >
-                    <div>
-                        <div class="team-name">Cantidad de jugadores </div>
-                        <div class="team-points" th:text="${cantidadJugadoresEnLaPartida}"></div>
-                    </div>
-                </div>
-                <div class="team container-fluid">
-                    <img src="https://img.freepik.com/psd-gratis/ilustracion-3d-persona-gafas-sol-cabello-verde_23-2149436201.jpg?w=740&t=st=1694135110~exp=1694135710~hmac=d3b9cb04b6ba9c8a43ac267beac353c542ac84f1813f2044b3862961af21ff63" class="img-fluid rounded" >
-                    <div>
-                        <div class="team-name">Equipo 2</div>
-                        <div class="team-points">8</div>
-                    </div>
-                </div>
-            </div>
-            <div class="score-container">
-                <div class="score-label">MANOS</div>
-                <div class="mano">RONDA1</div>
-                <div class="mano">RONDA2</div>
-                <div class="mano">RONDA3</div>
-            </div>
-        </div>
-        <div th:if="carta1" class="miscartas">
-            <div class="miCarta image-container" id="sourceDiv1">
-                <a >
-                    <img th:src="@{/assets/cartas/__${carta1.imagen}__}"  class="img-fluid carta-img" th:onclick="'moveImage(1, ' + ${usuario.id} +  ',' + ${carta1.id}+ ' )'"/>
-                </a>
-            </div>
-            <div class="miCarta image-container" id="sourceDiv2">
-                <a >
-                    <img th:src="@{/assets/cartas/__${carta2.imagen}__}"  class="img-fluid carta-img" th:onclick="'moveImage(2, ' + ${usuario.id} + ',' + ${carta2.id}+ ' )'"/>
-                </a>
-            </div>
-            <div class="miCarta image-container" id="sourceDiv3">
 
-                <a>
-                    <img th:src="@{/assets/cartas/__${carta3.imagen}__}"  class="img-fluid carta-img "t th:onclick="'moveImage(3, ' + ${usuario.id} + ',' + ${carta3.id}+ ' )'"/>
-                </a>
-            </div>
-        </div>
-        <div class="options-menu">
-            <div class="round-label">Ronda 1</div>
-            <div class="option-container">
-                <button class="option-button">TRUCO</button>
-            </div>
-            <div class="option-container">
-                <button class="option-button">RETRUCO</button>
-            </div>
-            <div class="option-container">
-                <button class="option-button">VALE CUATRO</button>
-            </div>
-            <div class="option-container">
-                <button class="option-button">ENVIDO</button>
-            </div>
-            <div class="option-container">
-                <button class="option-button">REAL ENVIDO</button>
-            </div>
-            <div class="option-container">
-                <button class="option-button">FALTA ENVIDO</button>
-            </div>
-            <div class="option-container">
-                <button class="option-button">AL MAZO</button>
-            </div>
-            <div class="option-container">
-                <button class="option-button">QUIERO</button>
-            </div>
-            <div class="option-container">
-                <button class="option-button">NO QUIERO</button>
-            </div>
+
+<section class="section_eventos">
+    <button id="mostrarPopup" class="btn btn-lg btn-danger abandonar">Abandonar Partida</button>
+    <div id="popup" class="popup" style="display: none;">
+
+        <!-- <span id="cerrarPopup" class="cerrar-popup">&times;</span> -->
+        <h2>Si abandona la partida se le restaran puntos. Esta seguro que desea abandonar la partida?</h2>
+        <div>
+            <button  id="cerrarPopup" class="boton cerrar-popup">Continuar partida</button>
+            <button  id="abandonar" class="btn-danger">Abandonar partida</button>
         </div>
 
     </div>
-    <!------------------------------------------------------------->
-    <div class="capa-superior-juego">
-        <div class="jugada">
-            <div th:attr="class=${cantidadJugadoresInt>=4 ? 'jugada1 jugada-true' : 'jugada-false'}">
-                <div class="tirada"></div>
-            </div>
-            <div  class="jugada5  jugada-true" id="tirada_jugador2">
-                <div class="tirada">
-                   </div>
-            </div>
-            <div th:attr="class=${cantidadJugadoresInt>=4 ? 'jugada2 jugada-true' : 'jugada-false'}">
-                <div class="tirada"></div>
-            </div>
-            <div th:attr="class=${cantidadJugadoresInt==6 ? 'jugada3 jugada-true' : 'jugada-false'}">
-                <div class="tirada"></div>
-            </div>
-            <div  class="jugada6 jugada-true">
-                <div id="destinationDiv" class="image-container"></div>
-            </div>
-            <div th:attr="class=${cantidadJugadoresInt==6 ? 'jugada4 jugada-true' : 'jugada-false'}">
-                <div class="tirada"></div>
+    <div class="options-menu">
+        <div class="round-label">Ronda 1</div>
+        <div class="option-container" th:if="${evento!= 'Le canto Retruco'} and ${evento!= 'Le canto Vale Cuatro'}" >
+            <form action="#" th:action="@{/truco}"  method="POST"  class="w-75" th:object="${evento}">
+                <button class="btn btn-primary" type="submit" value='truco' name="truco" >TRUCO</button>
+            </form>
+        </div>
+        <div class="option-container" th:if="${evento== 'Le canto Truco'} and ${evento!= 'Le canto Vale Cuatro'}">
+            <form action="#" th:action="@{/retruco}"  method="POST"  class="w-75" th:object="${evento}">
+                <button class="btn btn-primary" Type="Submit" value="retruco"  name="retruco" >RETRUCO</button>
+            </form>
+        </div>
+        <div class="option-container" th:if="${evento== 'Le canto Retruco'}">
+            <form action="#" th:action="@{/vale_cuatro}"  method="POST"  class="w-75" th:object="${evento}">
+                <button class="btn btn-primary" Type="Submit" value="vale_cuatro"  name="vale_cuatro" >VALE CUATRO</button>
+            </form>
+        </div>
+        <div class="option-container" th:if="${evento!= 'Le canto Real Envido'} and ${evento!= 'Le canto Falta Envido'}">
+            <form action="#" th:action="@{/envido}"  method="POST"  class="w-75" th:object="${evento}">
+                <button class="btn btn-primary" Type="Submit" value="envido" name="envido" >ENVIDO</button>
+            </form>
+        </div>
+        <div class="option-container" th:if="${evento== 'Le canto Envido'} and ${evento!= 'Le canto Falta Envido'}">
+            <form action="#" th:action="@{/real_envido}"  method="POST"  class="w-75" th:object="${evento}">
+                <button class="btn btn-primary" Type="Submit" value="real_envido" name="real_envido" >REAL ENVIDO</button>
+            </form>
+        </div>
+        <div class="option-container" th:if="${evento== 'Le canto Real Envido'}">
+            <form action="#" th:action="@{/falta_envido}"  method="POST"  class="w-75" th:object="${evento}">
+                <button class="btn btn-primary" Type="Submit" value="falta_envido" name="falta_envido" >FALTA ENVIDO</button>
+            </form>
+        </div>
+
+        <div th:if="${evento != null   }" class="option-container" >
+            <h4  class=" rounded-pill border border-3 border border-primary text-primary" th:color="white" th:text="${evento}"></h4>
+
+            <div th:if=" ${evento!= 'Quiero'} and ${evento!= 'No Quiero'} and ${evento!= 'Me voy al maso'}" class="alert alert-danger">
+                <div class="option-container">
+                    <form action="#" th:action="@{/quiero}"  method="POST"  class="w-75" th:object="${evento}">
+                        <button class="btn btn-success" Type="Submit"  value="quiero" name="quiero" >QUIERO</button>
+                    </form>
+                </div>
+                <div class="option-container">
+                    <form action="#" th:action="@{/no_quiero}"  method="POST"  class="w-75" th:object="${evento}">
+                        <button class="btn btn-danger" Type="Submit" value="no_quiero"  name="no_quiero" >NO QUIERO</button>
+                    </form>
+                </div>
+                <div class="option-container">
+                    <form action="#" th:action="@{/al_maso}"  method="POST"  class="w-75" th:object="${evento}">
+                        <button class="btn btn-warning" Type="Submit" value="al_maso" name="al_maso" >AL MAZO</button>
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>
-</div>
+</section>
+
 <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
 <script th:src="@{/js/script.js}"></script>
 <script th:inline="javascript">
@@ -164,6 +137,10 @@
     document.getElementById('cerrarPopup').addEventListener('click', function () {
         document.getElementById('popup').style.display = 'none';
         document.getElementById('mostrarPopup').style.display = 'flex';
+    });
+
+    document.getElementById('abandonar').addEventListener('click', function () {
+        window.location.href = "/spring/home2";
     });
 </script>
 

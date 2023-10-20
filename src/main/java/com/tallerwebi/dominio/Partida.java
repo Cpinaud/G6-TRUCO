@@ -13,25 +13,26 @@ public class Partida {
     private List<Ronda> rondas;
 
     
-    public Partida(Usuario usuario, Integer cantidadDejugadores) {
-        this.cantidadDejugadores = cantidadDejugadores;
+    public Partida() {
         equipos = new ArrayList<>();
         rondas = new ArrayList<>();
         jugadores = new ArrayList<>();
-        agregarEquipo(usuario);
     }
 
-    public void agregarEquipo(Usuario usuario) {
-        jugadores.add(usuario);
-        if(jugadores.size() == 1) equipos.add(new Equipo(1, usuario));
-        else if(jugadores.size() == 2) equipos.add(new Equipo(2, usuario));
-        else if(jugadores.size() == 3 || jugadores.size() == 5) equipos.get(1).agregarJugador(usuario);
-        else if(jugadores.size() == 4 || jugadores.size() == 6) equipos.get(2).agregarJugador(usuario);
+    public void agregarEquipo(Usuario jugador1, Usuario jugador2) {
+        jugadores.add(jugador1);
+        equipos.add(new Equipo(1, jugador1));
+
+        jugadores.add(jugador2);
+        equipos.add(new Equipo(2, jugador2));
     }
 
 
     public void iniciarRonda(List<Carta> cartas) {
-        rondas.add(new Ronda(equipos, jugadores, cartas));
+        Ronda ronda = new Ronda(equipos, jugadores, cartas);
+        rondas.add(ronda);
+        ronda.repartir();
+
     }
 
     public int obtenerCantidadDeJugadores() {
@@ -59,5 +60,9 @@ public class Partida {
 
     public boolean verficarSiLaRondaEstaIniciado() {
         return rondas.isEmpty() || obtenerRondaActual().validarSiLaRondaTermino();
+    }
+
+    public List<Usuario> obtenerJugadoresEnLaPartida(){
+        return jugadores;
     }
 }

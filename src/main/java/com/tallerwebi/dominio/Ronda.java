@@ -8,7 +8,7 @@ public class Ronda {
     private List<Usuario> jugadores;
     private List<Carta> baraja; //hay que pasarle la baraja desde la base de datos;
     private List<Mano> manoDelJugador;
-    private List<Carta> cartasEnLaMesa;
+    private List<Jugada> cartasEnLaMesa;
 
 
     public Ronda(List<Equipo> equipos, List<Usuario> jugadores, List<Carta> baraja) {
@@ -17,33 +17,31 @@ public class Ronda {
         this.baraja = baraja;
         manoDelJugador = new ArrayList<>();
         cartasEnLaMesa = new ArrayList<>();
-        repartir();
+        //repartir();
     }
 
 
-    private void repartir() {
+    public void repartir() {
+
+        List<Carta> cartas = new ArrayList<>();
+        cartas.addAll(baraja);
 
         for (int i = 0; i < jugadores.size(); i++) {
             List<Carta> cartasAleatorias = new ArrayList<>();
 
             for (int j = 0; j < 3; j++) {
-                int indiceRandom = (int) (Math.random() * baraja.size());
-                Carta cartaAleatoria = baraja.get(indiceRandom);
+                int indiceRandom = (int) (Math.random() * cartas.size());
+                Carta cartaAleatoria = cartas.get(indiceRandom);
 
                 cartasAleatorias.add(cartaAleatoria);
-                baraja.remove(cartaAleatoria);
+                cartas.remove(cartaAleatoria);
             }
             manoDelJugador.add(new Mano (jugadores.get(i), cartasAleatorias));
         }
     }
 
     public void jugarCarta(Usuario usuario, Carta carta){
-        if (!validarSiYaTiroCarta(usuario)) {
-            cartasEnLaMesa.add(carta);
-            if (validarSiTerminoMano()) {
-                terminarMano();
-            }
-        }
+        cartasEnLaMesa.add(new Jugada(usuario.getId(), carta));
 
     }
 
@@ -55,14 +53,15 @@ public class Ronda {
     }
 
     private boolean validarSiTerminoMano() {
-        return manoDelJugador.size() == jugadores.size();
+        return cartasEnLaMesa.size() == jugadores.size() && !manoDelJugador.isEmpty();
     };
 
-    public void terminarMano(){
-        Usuario  ganador = calcularGanador();
-        manoDelJugador.clear();
-        ordenarJugadores(ganador);
-        repartir();
+    public Jugada terminarMano(){
+        Jugada jugadaGanadora = calcularGanador();
+        //manoDelJugador.clear();
+        //ordenarJugadores(ganador);
+        jugadaGanadora.setJugadaGanadora(true);
+        return jugadaGanadora;
     }
 
     private void ordenarJugadores(Usuario ganador) {
@@ -80,31 +79,40 @@ public class Ronda {
         }
     }
 
-    private Usuario calcularGanador() {
-        Carta cartaMayor = cartasEnLaMesa.get(0);
+    private Jugada calcularGanador() {
+        Jugada jugadaGanadora = cartasEnLaMesa.get(0);
 
         for (int i = 1; i < cartasEnLaMesa.size(); i++) {
-            if(cartasEnLaMesa.get(i).getValor() > cartaMayor.getValor()){
-                cartaMayor = cartasEnLaMesa.get(i);
+            if(cartasEnLaMesa.get(i).getCarta().getValor() > jugadaGanadora.getCarta().getValor()){
+                jugadaGanadora = cartasEnLaMesa.get(i);
             }
         }
 
-        return jugadores.get(cartasEnLaMesa.indexOf(cartaMayor));
+        return jugadaGanadora;
     }
 
     public List<Carta> getBaraja() {
         return baraja;
     }
 
-    public List<Mano> getManoDelJugador() {
+    public List<Mano> getManosDeLosJugadores() {
         return manoDelJugador;
     }
 
-    public List<Carta> getCartasEnLaMesa() {
+    public List<Jugada> getCartasEnLaMesa() {
         return cartasEnLaMesa;
     }
 
     public boolean validarSiLaRondaTermino() {
         return cartasEnLaMesa.size() == jugadores.size() * 3;
+    }
+
+    public Jugada obtenerUltimaJugada() {
+        if (validarSiTerminoMano()) {
+            manoDelJugador.clear();
+           return terminarMano();
+
+        }
+        return cartasEnLaMesa.get(cartasEnLaMesa.size()-1);
     }
 }

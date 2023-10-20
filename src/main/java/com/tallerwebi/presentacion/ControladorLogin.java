@@ -96,5 +96,13 @@ public class ControladorLogin {
         model.setViewName("redirect:/index");
         return model;
     }
+
+    @RequestMapping(path = "/home2", method = RequestMethod.GET)
+    public ModelAndView irAHome2( HttpServletRequest request) {
+        ModelAndView model = new ModelAndView();
+        model.addObject("usuario", request.getSession().getAttribute("usuario"));
+        model.setViewName("home");
+        return model;
+    }
 }
 

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("servicioPartida")
@@ -20,8 +21,8 @@ public class ServicioPartida {
     }
 
 
-    public void crearPartida(Usuario usuario, int cantidadJugadoresInt){
-        repositorioPartida.crearPartida(usuario, cantidadJugadoresInt);
+    public void crearPartida(ArrayList<Long> usuariosConectados){
+        repositorioPartida.crearPartida(usuariosConectados);
     };
 
     public List<Carta> obtenerManoDelJugador(Long usuario){
@@ -32,7 +33,7 @@ public class ServicioPartida {
         return repositorioPartida.obtenerCantidadDeJugadores();
     }
 
-    public void jugarCarta(Integer carta, Long usuario) {
+    public void jugarCarta(Long usuario, Integer carta) {
         repositorioPartida.jugarCarta(usuario, carta);
     }
 
@@ -42,5 +43,13 @@ public class ServicioPartida {
 
     public void iniciarRonda() {
         repositorioPartida.iniciarRonda();
+    }
+
+    public Jugada obtenerUltimaJugada() {
+        return repositorioPartida.obtenerUltimaJugada();
+    }
+
+    public List<Usuario>  obtenerJugadoresEnLaPartida() {
+        return repositorioPartida.obtenerJugadoresEnLaPartida();
     }
 }
