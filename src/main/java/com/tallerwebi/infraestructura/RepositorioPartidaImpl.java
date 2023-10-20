@@ -38,7 +38,7 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
 
     }
 
-    private Usuario buscarJugador(Long aLong) {
+    public Usuario buscarJugador(Long aLong) {
         return (Usuario) sessionFactory.getCurrentSession().createCriteria(Usuario.class)
                 .add(Restrictions.eq("id", aLong))
                 .uniqueResult();}
@@ -57,11 +57,20 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
         return partida.obtenerRondaActual().obtenerUltimaJugada();
     }
 
-    private List<Carta> obtenerBaraja() {
+    @Override
+    public List<Usuario> obtenerJugadoresEnLaPartida() {
+        return partida.obtenerJugadoresEnLaPartida();
+    }
+
+    public List<Carta> obtenerBaraja() {
         return sessionFactory.getCurrentSession().createQuery("FROM Carta", Carta.class).list();
     }
 
-    private Carta obtenerCarta(Integer id) {
+    public List<Usuario> obtenerUsuario() {
+        return sessionFactory.getCurrentSession().createQuery("FROM Usuario", Usuario.class).list();
+    }
+
+    public Carta obtenerCarta(Integer id) {
         final Session session = sessionFactory.getCurrentSession();
         return (Carta) session.createCriteria(Carta.class)
                 .add(Restrictions.eq("id", id))
@@ -69,7 +78,7 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
    }
 
     public List<Carta> obtenerManoDelJugador(Long usuario){
-        List<Mano> manos = partida.obtenerRondaActual().getManoDelJugador();
+        List<Mano> manos = partida.obtenerRondaActual().getManosDeLosJugadores();
 
         for (int i = 0; i < manos.size(); i++) {
             if (manos.get(i).getJugador().getId().equals(usuario)){

@@ -3,6 +3,7 @@ package com.tallerwebi.dominio;
 import com.tallerwebi.dominio.Palo;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Carta")
@@ -81,5 +82,18 @@ public class Carta {
     @Override
     public String toString() {
         return "Carta [id=" + id + ", nro=" + nro + ", palo=" + palo + ", valor=" + valor + ", imagen=" + imagen + "]";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Carta)) return false;
+        Carta carta = (Carta) o;
+        return getId() == carta.getId() && getNro() == carta.getNro() && getValor() == carta.getValor() && Objects.equals(getPalo(), carta.getPalo()) && Objects.equals(getImagen(), carta.getImagen());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getNro(), getPalo(), getValor(), getImagen());
     }
 }

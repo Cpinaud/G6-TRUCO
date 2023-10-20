@@ -29,7 +29,10 @@ public class Partida {
 
 
     public void iniciarRonda(List<Carta> cartas) {
-        rondas.add(new Ronda(equipos, jugadores, cartas));
+        Ronda ronda = new Ronda(equipos, jugadores, cartas);
+        rondas.add(ronda);
+        ronda.repartir();
+
     }
 
     public int obtenerCantidadDeJugadores() {
@@ -57,5 +60,9 @@ public class Partida {
 
     public boolean verficarSiLaRondaEstaIniciado() {
         return rondas.isEmpty() || obtenerRondaActual().validarSiLaRondaTermino();
+    }
+
+    public List<Usuario> obtenerJugadoresEnLaPartida(){
+        return jugadores;
     }
 }

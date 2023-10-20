@@ -5,12 +5,15 @@ public class Jugada {
     private Long jugador;
     private Carta carta;
 
+    private Boolean jugadaGanadora;
+
     public Jugada() {
     }
 
     public Jugada(Long jugador, Carta carta) {
         this.jugador = jugador;
         this.carta = carta;
+        jugadaGanadora = false;
     }
 
     public Long getJugador() {
@@ -27,5 +30,13 @@ public class Jugada {
 
     public void setCarta(Carta carta) {
         this.carta = carta;
+    }
+
+    public Boolean getJugadaGanadora() {
+        return jugadaGanadora;
+    }
+
+    public void setJugadaGanadora(Boolean jugadaGanadora) {
+        this.jugadaGanadora = jugadaGanadora;
     }
 }

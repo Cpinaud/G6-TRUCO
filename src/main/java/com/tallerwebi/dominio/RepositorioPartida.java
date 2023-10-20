@@ -18,4 +18,6 @@ public interface RepositorioPartida {
     void iniciarRonda();
 
     Jugada obtenerUltimaJugada();
+
+    List<Usuario> obtenerJugadoresEnLaPartida();
 }
