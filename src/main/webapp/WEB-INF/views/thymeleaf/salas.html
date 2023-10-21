@@ -20,10 +20,7 @@
                         <p th:text="${salas.nombre_sala}" name="nombre_sala"> </p>
                         <p th:text="${salas.cantidad_de_jugadores_en_sala} + '/'+ ${salas.cantidadMaximaJugadores}"></p>
 
-<<<<<<< HEAD
-        <p th:text="${usuariosEnLaSala}"></p>
-        <p>Uusuario actual: <span th:text="${usuarioJava.username}"></span></p>
-=======
+
 
                         <button class="btn" Type="Submit">Ingresar</button>
                         <br>
@@ -41,20 +38,12 @@
             </p>
             <button id="btn-login2" class="btn" Type="Submit">Crear Sala</button>
 
->>>>>>> 69a7bd46936bfc457730cd6f5e108a0a7f808d9a
 
-        <form th:if="${iniciarPartida}" action="#" th:action="@{/partida}"  method="POST"  class="w-75">
 
-            <button id="btn-login" class="btn" Type="Submit" onclick="iniciarPartida()">Sala completa</button>
-
-        </form>
     </div>
 </div>
-<<<<<<< HEAD
 
 <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
 <script th:src="@{/js/conexionWebSocket.js}"></script>
-=======
->>>>>>> 69a7bd46936bfc457730cd6f5e108a0a7f808d9a
 </body>
 </html>

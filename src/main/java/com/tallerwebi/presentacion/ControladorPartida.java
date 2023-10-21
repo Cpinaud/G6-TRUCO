@@ -1,8 +1,9 @@
 package com.tallerwebi.presentacion;
 
-import com.tallerwebi.dominio.*;
+import com.tallerwebi.dominio.Jugada;
+import com.tallerwebi.dominio.ServicioPartida;
+import com.tallerwebi.dominio.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -44,12 +45,14 @@ public class ControladorPartida {
 
         if(registroUsuarios.obtenerCantidadDeUsuarios() == 2){
             servicioPartida.crearPartida(usuariosConectados);
+
+            //Hacer que se envie que ya estan todos los usuarios conectados.
             model.addObject("iniciarPartida", true);
         }
 
         model.addObject("usuarioJava", request.getSession().getAttribute("usuario"));
         model.addObject("usuariosEnLaSala", registroUsuarios.obtenerCantidadDeUsuarios());
-        model.setViewName("salas");
+        model.setViewName("sala_espera");
         return model;
     }
 
@@ -59,7 +62,6 @@ public class ControladorPartida {
 
 
         model.addObject("usuariosEnLaSala", registroUsuarios.obtenerCantidadDeUsuarios());
-        model.setViewName("salas");
 
         model.setViewName("sala_espera");
 
@@ -71,10 +73,21 @@ public class ControladorPartida {
         request.getSession().setAttribute("cantidadDeJugadores", cantidadJugadores);
         model.addObject("cantidadJugadoresInt", cantidadJugadores);
 
-//        int cantidadJugadoresInt = Integer.parseInt(cantidadJugadores);
-//        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
-//        servicioPartida.crearPartida(usuario, 2);
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
 
+        // Registra al usuario con su sesión
+        registroUsuarios.registerUser(usuario.getUsername(), usuario.getId());
+
+
+        ArrayList<Long> usuariosConectados = new ArrayList<>(registroUsuarios.obtenerUsuariosConectados().values());
+
+        if(registroUsuarios.obtenerCantidadDeUsuarios() == 2){
+            servicioPartida.crearPartida(usuariosConectados);
+            model.addObject("iniciarPartida", true);
+        }
+
+        model.addObject("usuarioJava", request.getSession().getAttribute("usuario"));
+        model.addObject("usuariosEnLaSala", registroUsuarios.obtenerCantidadDeUsuarios());
         model.setViewName("sala_espera");
         return model;
     }
@@ -82,7 +95,7 @@ public class ControladorPartida {
     @RequestMapping("/partida")
     public ModelAndView iniciarPartida( HttpServletRequest request){
         ModelAndView model = new ModelAndView();
-        
+
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
 
         ArrayList<Long> usuariosConectados = new ArrayList<>(registroUsuarios.obtenerUsuariosConectados().values());
@@ -101,7 +114,7 @@ public class ControladorPartida {
             model.setViewName("partida");
             return model;
         }
-        
+
         model.setViewName("sala_espera");
         return model;
     }
